@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+
+@import "tailwindcss/preflight";
+@tailwind utilities;
+
+:root {
+  --titanio-blue: #00529B;
+  --titanio-green: #64BC26;
+  --titanio-accent: #00A8E8;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  @apply bg-[#F1F5F9] text-slate-800;
+}
