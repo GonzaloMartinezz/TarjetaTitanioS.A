@@ -32,24 +32,34 @@ export default function MerchantLanding() {
           className="text-center mb-12 sm:mb-16"
         >
           <div className="flex items-center justify-center gap-6 mb-8">
-            <div className="h-16 w-3 bg-gradient-to-b from-[#64BC26] to-[#E0F200] rounded-full" />
+            <div className="h-16 w-3 bg-linear-to-b from-[#64BC26] to-[#E0F200] rounded-full" />
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#64BC26] uppercase tracking-tighter italic">Portal Comercios</h1>
-            <div className="h-16 w-3 bg-gradient-to-b from-[#E0F200] to-[#64BC26] rounded-full" />
+            <div className="h-16 w-3 bg-linear-to-b from-[#E0F200] to-[#64BC26] rounded-full" />
           </div>
           <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium">Multiplica tus ventas con nuestras soluciones de pago para tu negocio</p>
         </motion.div>
 
         {/* Beneficios principales */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {beneficios.map((item, i) => {
-            const IconComponent = item.icon;
-            return (
-              {/* Posnet Section - stacked layout with right column stacked */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                className="mb-20 bg-white rounded-3xl p-8 md:p-12 shadow-lg border border-slate-100"
-              >
+          {beneficios.map((beneficio, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="bg-linear-to-br from-[#F1F5F9] to-white border-2 border-slate-200 rounded-2xl p-8 transition-all"
+            >
+              <div className="text-6xl mb-4"><beneficio.icon /></div>
+              <h3 className="text-2xl font-black text-[#00529B] mb-4">{beneficio.title}</h3>
+              <p className="text-sm text-slate-600">{beneficio.desc}</p>
+            </motion.div>
+          ))}
+        </div>        
+        {/* Sección de Posnet */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="bg-linear-to-br from-[#F1F5F9] to-white border-2 border-slate-200 rounded-2xl p-8 transition-all"
+        >
                 <h2 className="text-3xl sm:text-4xl font-black text-[#64BC26] mb-8 text-center">Nuestros Posnet</h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -114,16 +124,16 @@ export default function MerchantLanding() {
                 className="mb-20 rounded-3xl overflow-hidden relative"
               >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6">
-                  <div className="bg-gradient-to-r from-[#B8E441] via-[#E0F200] to-[#A3D83E] rounded-2xl p-4 shadow-xl flex items-center justify-center">
+                  <div className="bg-linear-to-r from-[#B8E441] via-[#E0F200] to-[#A3D83E] rounded-2xl p-4 shadow-xl flex items-center justify-center">
                     {prismaOK ? (
                       <img
                         src="/prisma-banner.png"
                         alt="PRISMA"
-                        className="w-full h-auto max-h-[420px] object-cover rounded-lg"
+                        className="w-full h-auto max-h-105 object-cover rounded-lg"
                         onError={() => setPrismaOK(false)}
                       />
                     ) : (
-                      <div className="w-full max-h-[420px] flex items-center justify-center rounded-lg p-8 bg-gradient-to-r from-[#B8E441] via-[#E0F200] to-[#A3D83E] text-[#083344] font-black">
+                      <div className="w-full max-h-105 flex items-center justify-center rounded-lg p-8 bg-linear-to-r from-[#B8E441] via-[#E0F200] to-[#A3D83E] text-[#083344] font-black">
                         <div className="text-center">
                           <p className="text-xl">PRISMA banner no encontrado</p>
                           <p className="text-sm mt-2 opacity-80">Subir <span className="font-mono">/public/prisma-banner.png</span> para mostrarlo</p>
@@ -149,6 +159,38 @@ export default function MerchantLanding() {
               <img src="https://via.placeholder.com/300x400/E0F200/333333?text=Terminal+LAPOS" alt="Terminal LAPOS" className="max-w-full h-auto rounded-2xl shadow-2xl" />
             </motion.div>
           </div>
+        </div>
+
+        {/* Beneficios para tu Negocio */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="mb-20"
+        >
+          <h2 className="text-4xl sm:text-5xl font-black text-[#64BC26] mb-4 text-center uppercase italic">Beneficios para tu Negocio</h2>
+          <div className="h-1 w-40 bg-linear-to-r from-[#64BC26] to-[#E0F200] mx-auto mb-16"></div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {beneficios.map((item, i) => {
+              const IconComponent = item.icon;
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="group bg-linear-to-br from-white to-[#F0FFF0] rounded-2xl p-8 shadow-lg hover:shadow-2xl hover:scale-105 transition-all border-2 border-[#64BC26]/30 hover:border-[#64BC26] cursor-pointer overflow-hidden relative"
+                >
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#E0F200]/20 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform"></div>
+                  <div className="w-16 h-16 bg-linear-to-br from-[#64BC26]/20 to-[#E0F200]/20 rounded-xl flex items-center justify-center mb-4 group-hover:from-[#64BC26]/40 group-hover:to-[#E0F200]/40 transition-all relative z-10">
+                    <IconComponent className="text-[#64BC26] group-hover:text-[#4e941d] transition-colors" size={32} />
+                  </div>
+                  <h3 className="text-xl font-black text-[#64BC26] mb-2 group-hover:text-[#4e941d] transition-colors">{item.title}</h3>
+                  <p className="text-slate-600 mb-4 group-hover:text-slate-700 transition-colors font-medium text-sm">{item.desc}</p>
+                </motion.div>
+              );
+            })}
+          </div>
         </motion.div>
 
         {/* Servicios para tu Negocio */}
@@ -158,7 +200,7 @@ export default function MerchantLanding() {
           className="mb-20"
         >
           <h2 className="text-4xl sm:text-5xl font-black text-[#64BC26] mb-4 text-center uppercase italic">Servicios para tu Negocio</h2>
-          <div className="h-1 w-40 bg-gradient-to-r from-[#64BC26] to-[#E0F200] mx-auto mb-16"></div>
+          <div className="h-1 w-40 bg-linear-to-r from-[#64BC26] to-[#E0F200] mx-auto mb-16"></div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {servicios.map((item, i) => {
@@ -169,10 +211,10 @@ export default function MerchantLanding() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="group bg-gradient-to-br from-white to-[#F0FFF0] rounded-2xl p-8 shadow-lg hover:shadow-2xl hover:scale-105 transition-all border-2 border-[#64BC26]/30 hover:border-[#64BC26] cursor-pointer overflow-hidden relative"
+                  className="group bg-linear-to-br from-white to-[#F0FFF0] rounded-2xl p-8 shadow-lg hover:shadow-2xl hover:scale-105 transition-all border-2 border-[#64BC26]/30 hover:border-[#64BC26] cursor-pointer overflow-hidden relative"
                 >
                   <div className="absolute top-0 right-0 w-32 h-32 bg-[#E0F200]/20 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform"></div>
-                  <div className="w-16 h-16 bg-gradient-to-br from-[#64BC26]/20 to-[#E0F200]/20 rounded-xl flex items-center justify-center mb-4 group-hover:from-[#64BC26]/40 group-hover:to-[#E0F200]/40 transition-all relative z-10">
+                  <div className="w-16 h-16 bg-linear-to-br from-[#64BC26]/20 to-[#E0F200]/20 rounded-xl flex items-center justify-center mb-4 group-hover:from-[#64BC26]/40 group-hover:to-[#E0F200]/40 transition-all relative z-10">
                     <IconComponent className="text-[#64BC26] group-hover:text-[#4e941d] transition-colors" size={32} />
                   </div>
                   <h3 className="text-xl font-black text-[#00529B] mb-3 group-hover:text-[#64BC26] transition-colors relative z-10">{item.title}</h3>
@@ -190,8 +232,8 @@ export default function MerchantLanding() {
           className="mb-20"
         >
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#64BC26]/30 via-[#E0F200]/20 to-[#64BC26]/30 blur-3xl rounded-3xl"></div>
-            <div className="relative bg-gradient-to-br from-white via-[#FFFEF0] to-[#F0FFF0] backdrop-blur-xl rounded-3xl p-10 md:p-16 shadow-2xl border-2 border-[#64BC26]/50 overflow-hidden">
+            <div className="absolute inset-0 bg-linear-to-r from-[#64BC26]/30 via-[#E0F200]/20 to-[#64BC26]/30 blur-3xl rounded-3xl"></div>
+            <div className="relative bg-linear-to-br from-white via-[#FFFEF0] to-[#F0FFF0] backdrop-blur-xl rounded-3xl p-10 md:p-16 shadow-2xl border-2 border-[#64BC26]/50 overflow-hidden">
               {/* Decorative corners */}
               <div className="absolute top-0 right-0 w-40 h-40 bg-[#E0F200]/20 rounded-full -mr-20 -mt-20 blur-2xl" />
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#64BC26]/10 rounded-full -ml-20 -mb-20 blur-2xl" />
@@ -205,7 +247,7 @@ export default function MerchantLanding() {
                 {/* Datos principales */}
                 <div>
                   <h3 className="text-2xl font-black text-[#00529B] mb-6 flex items-center gap-3">
-                    <span className="w-8 h-8 bg-gradient-to-br from-[#64BC26] to-[#E0F200] rounded-full flex items-center justify-center text-white font-black text-sm">1</span>
+                    <span className="w-8 h-8 bg-linear-to-br from-[#64BC26] to-[#E0F200] rounded-full flex items-center justify-center text-white font-black text-sm">1</span>
                     Datos del Comercio
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -223,7 +265,7 @@ export default function MerchantLanding() {
                 {/* Contacto */}
                 <div>
                   <h3 className="text-2xl font-black text-[#00529B] mb-6 flex items-center gap-3">
-                    <span className="w-8 h-8 bg-gradient-to-br from-[#64BC26] to-[#E0F200] rounded-full flex items-center justify-center text-white font-black text-sm">2</span>
+                    <span className="w-8 h-8 bg-linear-to-br from-[#64BC26] to-[#E0F200] rounded-full flex items-center justify-center text-white font-black text-sm">2</span>
                     Datos de Contacto
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -241,7 +283,7 @@ export default function MerchantLanding() {
                 {/* Ubicación */}
                 <div>
                   <h3 className="text-2xl font-black text-[#00529B] mb-6 flex items-center gap-3">
-                    <span className="w-8 h-8 bg-gradient-to-br from-[#64BC26] to-[#E0F200] rounded-full flex items-center justify-center text-white font-black text-sm">3</span>
+                    <span className="w-8 h-8 bg-linear-to-br from-[#64BC26] to-[#E0F200] rounded-full flex items-center justify-center text-white font-black text-sm">3</span>
                     Ubicación del Local
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -263,7 +305,7 @@ export default function MerchantLanding() {
                 {/* Tipo de Negocio */}
                 <div>
                   <h3 className="text-2xl font-black text-[#00529B] mb-6 flex items-center gap-3">
-                    <span className="w-8 h-8 bg-gradient-to-br from-[#64BC26] to-[#E0F200] rounded-full flex items-center justify-center text-white font-black text-sm">4</span>
+                    <span className="w-8 h-8 bg-linear-to-br from-[#64BC26] to-[#E0F200] rounded-full flex items-center justify-center text-white font-black text-sm">4</span>
                     Tipo de Negocio
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -281,7 +323,7 @@ export default function MerchantLanding() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className="w-full bg-gradient-to-r from-[#64BC26] via-[#E0F200] to-[#64BC26] text-[#00529B] py-6 rounded-2xl font-black text-xl shadow-xl shadow-green-400/40 hover:shadow-2xl transition-all"
+                  className="w-full bg-linear-to-r from-[#64BC26] via-[#E0F200] to-[#64BC26] text-[#00529B] py-6 rounded-2xl font-black text-xl shadow-xl shadow-green-400/40 hover:shadow-2xl transition-all"
                 >
                   ASOCIATE AHORA
                 </motion.button>
@@ -307,6 +349,5 @@ export default function MerchantLanding() {
           </motion.button>
         </motion.div>
       </div>
-    </div>
   );
-}
+};

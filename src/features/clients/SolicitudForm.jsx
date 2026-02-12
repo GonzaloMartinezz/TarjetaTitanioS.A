@@ -115,7 +115,7 @@ const SolicitudForm = () => {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-20 bg-gradient-to-br from-[#00529B] via-[#00A8E8] to-[#00529B] px-4 sm:px-6">
+    <div className="min-h-screen pt-32 pb-20 bg-linear-to-br from-[#00529B] via-[#00A8E8] to-[#00529B] px-4 sm:px-6">
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -123,7 +123,7 @@ const SolicitudForm = () => {
       >
         <div className="bg-white rounded-4xl shadow-2xl overflow-hidden border border-slate-200">
           {/* Header */}
-          <div className="bg-gradient-to-r from-[#00529B] to-[#00A8E8] p-8 sm:p-12 text-center">
+          <div className="bg-linear-to-r from-[#00529B] to-[#00A8E8] p-8 sm:p-12 text-center">
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
@@ -211,7 +211,7 @@ const SolicitudForm = () => {
                     key={op}
                     className={`p-4 rounded-2xl border-2 cursor-pointer transition-all font-bold text-center ${
                       formData.tipoTrabajo === op
-                        ? 'bg-gradient-to-r from-[#00529B] to-[#00A8E8] border-[#00529B] text-white shadow-lg'
+                        ? 'bg-linear-to-r from-[#00529B] to-[#00A8E8] border-[#00529B] text-white shadow-lg'
                         : 'bg-slate-50 border-slate-300 text-slate-700 hover:border-[#00A8E8]'
                     }`}
                   >
@@ -239,7 +239,7 @@ const SolicitudForm = () => {
                     key={op}
                     className={`p-4 rounded-2xl border-2 cursor-pointer transition-all font-bold text-center ${
                       formData.categoria === op
-                        ? 'bg-gradient-to-r from-[#64BC26] to-[#7ed321] border-[#64BC26] text-white shadow-lg'
+                        ? 'bg-linear-to-r from-[#64BC26] to-[#7ed321] border-[#64BC26] text-white shadow-lg'
                         : 'bg-slate-50 border-slate-300 text-slate-700 hover:border-[#64BC26]'
                     }`}
                   >
@@ -282,7 +282,7 @@ const SolicitudForm = () => {
                 whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-[#64BC26] to-[#7ed321] text-white py-6 rounded-2xl font-black text-xl shadow-xl shadow-green-300 hover:shadow-2xl disabled:opacity-70 transition-all"
+                className="w-full bg-linear-to-r from-[#64BC26] to-[#7ed321] text-white py-6 rounded-2xl font-black text-xl shadow-xl shadow-green-300 hover:shadow-2xl disabled:opacity-70 transition-all"
               >
                 {isSubmitting ? '⏳ PROCESANDO...' : '✓ ENVIAR SOLICITUD'}
               </motion.button>
@@ -307,7 +307,7 @@ const SolicitudForm = () => {
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="w-20 h-20 bg-gradient-to-br from-[#64BC26] to-[#7ed321] rounded-full flex items-center justify-center mx-auto mb-6"
+            className="w-20 h-20 bg-linear-to-br from-[#64BC26] to-[#7ed321] rounded-full flex items-center justify-center mx-auto mb-6"
           >
             <CheckCircle2 size={48} className="text-white" strokeWidth={2} />
           </motion.div>

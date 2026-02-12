@@ -7,11 +7,11 @@ const ArgenCardComponent = ({ interactive = false, onMouseMove, onMouseLeave, st
       style={style}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
-      className="relative w-full max-w-[480px] group"
+      className="relative w-full max-w-120 group"
     >
       <svg
         viewBox="0 0 600 380"
-        className="w-full h-auto drop-shadow-2xl rounded-[1.5rem] overflow-hidden"
+        className="w-full h-auto drop-shadow-2xl rounded-3xl overflow-hidden"
       >
         {/* Fondo de la tarjeta */}
         <defs>
@@ -135,7 +135,7 @@ const ArgenCardComponent = ({ interactive = false, onMouseMove, onMouseLeave, st
 
       {/* Reflejo de luz al pasar el mouse */}
       {interactive && (
-        <div className="absolute inset-0 z-20 rounded-[1.5rem] opacity-0 group-hover:opacity-30 transition-opacity duration-300 bg-gradient-to-tr from-transparent via-white/50 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 z-20 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 bg-linear-to-tr from-transparent via-white/50 to-transparent pointer-events-none" />
       )}
     </motion.div>
   );

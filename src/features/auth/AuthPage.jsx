@@ -51,7 +51,7 @@ const AuthPage = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen pt-32 pb-20 flex items-center justify-center px-4 relative overflow-hidden bg-gradient-to-br from-[#00529B]/10 via-[#00A8E8]/5 to-[#64BC26]/10">
+      <div className="min-h-screen pt-32 pb-20 flex items-center justify-center px-4 relative overflow-hidden bg-linear-to-br from-[#00529B]/10 via-[#00A8E8]/5 to-[#64BC26]/10">
         {/* Animated Blur Background */}
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#00A8E8]/30 rounded-full blur-3xl animate-pulse" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#00529B]/30 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
@@ -70,7 +70,7 @@ const AuthPage = () => {
             className="mb-8 flex justify-center"
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#64BC26] to-[#7ed321] blur-2xl opacity-50" />
+              <div className="absolute inset-0 bg-linear-to-r from-[#64BC26] to-[#7ed321] blur-2xl opacity-50" />
               <CheckCircle2 size={100} className="text-[#64BC26] relative" strokeWidth={1.5} />
             </div>
           </motion.div>
@@ -94,10 +94,10 @@ const AuthPage = () => {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-20 flex items-center justify-center px-4 relative overflow-hidden bg-gradient-to-br from-[#00529B]/15 via-slate-50 to-[#00A8E8]/15">
+    <div className="min-h-screen pt-24 pb-20 flex items-center justify-center px-4 relative overflow-hidden bg-linear-to-br from-[#00529B]/15 via-slate-50 to-[#00A8E8]/15">
       {/* Animated Blur Background */}
-      <div className="absolute -top-96 -right-96 w-[600px] h-[600px] bg-gradient-to-br from-[#00A8E8]/40 to-transparent rounded-full blur-3xl animate-pulse" />
-      <div className="absolute -bottom-96 -left-96 w-[600px] h-[600px] bg-gradient-to-tr from-[#00529B]/40 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }} />
+      <div className="absolute -top-96 -right-96 w-150 h-150 bg-linear-to-br from-[#00A8E8]/40 to-transparent rounded-full blur-3xl animate-pulse" />
+      <div className="absolute -bottom-96 -left-96 w-150 h-150 bg-linear-to-tr from-[#00529B]/40 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }} />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#64BC26]/20 rounded-full blur-3xl" />
 
       <motion.div
@@ -110,11 +110,11 @@ const AuthPage = () => {
         <div className="bg-white/97 backdrop-blur-2xl rounded-[3.5rem] shadow-2xl overflow-hidden border-2 border-white relative">
           
           {/* Gradient Background Corners */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-[#00A8E8]/30 to-transparent rounded-full -mr-48 -mt-48 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-[#00529B]/30 to-transparent rounded-full -ml-48 -mb-48 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-linear-to-br from-[#00A8E8]/30 to-transparent rounded-full -mr-48 -mt-48 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-linear-to-tr from-[#00529B]/30 to-transparent rounded-full -ml-48 -mb-48 pointer-events-none" />
           
           {/* Header with gradient - LARGER */}
-          <div className="bg-gradient-to-r from-[#00529B] via-[#1B5E9E] to-[#00A8E8] p-12 text-white text-center relative overflow-hidden">
+          <div className="bg-linear-to-r from-[#00529B] via-[#1B5E9E] to-[#00A8E8] p-12 text-white text-center relative overflow-hidden">
             <div className="absolute inset-0 opacity-10">
               <div className="absolute top-0 left-0 w-40 h-40 bg-white rounded-full -ml-20 -mt-20" />
               <div className="absolute bottom-0 right-0 w-40 h-40 bg-white rounded-full -mr-20 -mb-20" />
@@ -137,7 +137,7 @@ const AuthPage = () => {
                 onClick={() => setIsLogin(true)}
                 className={`flex-1 py-4 rounded-xl font-black text-base transition-all ${
                   isLogin
-                    ? 'bg-gradient-to-r from-[#00529B] to-[#00A8E8] text-white shadow-xl shadow-blue-500/30'
+                    ? 'bg-linear-to-r from-[#00529B] to-[#00A8E8] text-white shadow-xl shadow-blue-500/30'
                     : 'text-slate-600 hover:text-slate-800'
                 }`}
                 whileHover={{ scale: 1.02 }}
@@ -149,7 +149,7 @@ const AuthPage = () => {
                 onClick={() => setIsLogin(false)}
                 className={`flex-1 py-4 rounded-xl font-black text-base transition-all ${
                   !isLogin
-                    ? 'bg-gradient-to-r from-[#64BC26] to-[#7ed321] text-white shadow-xl shadow-green-500/30'
+                    ? 'bg-linear-to-r from-[#64BC26] to-[#7ed321] text-white shadow-xl shadow-green-500/30'
                     : 'text-slate-600 hover:text-slate-800'
                 }`}
                 whileHover={{ scale: 1.02 }}
@@ -181,7 +181,7 @@ const AuthPage = () => {
                           onChange={handleChange}
                           placeholder="Juan"
                           required
-                          className="w-full pl-14 pr-6 py-4 bg-gradient-to-br from-slate-50 to-slate-100 border-2 border-slate-300 rounded-2xl focus:border-[#00A8E8] focus:ring-4 focus:ring-[#00A8E8]/30 focus:bg-white transition-all outline-none font-bold text-base"
+                          className="w-full pl-14 pr-6 py-4 bg-linear-to-br from-slate-50 to-slate-100 border-2 border-slate-300 rounded-2xl focus:border-[#00A8E8] focus:ring-4 focus:ring-[#00A8E8]/30 focus:bg-white transition-all outline-none font-bold text-base"
                         />
                       </div>
                     </motion.div>
@@ -203,7 +203,7 @@ const AuthPage = () => {
                           onChange={handleChange}
                           placeholder="Pérez"
                           required
-                          className="w-full pl-14 pr-6 py-4 bg-gradient-to-br from-slate-50 to-slate-100 border-2 border-slate-300 rounded-2xl focus:border-[#00A8E8] focus:ring-4 focus:ring-[#00A8E8]/30 focus:bg-white transition-all outline-none font-bold text-base"
+                          className="w-full pl-14 pr-6 py-4 bg-linear-to-br from-slate-50 to-slate-100 border-2 border-slate-300 rounded-2xl focus:border-[#00A8E8] focus:ring-4 focus:ring-[#00A8E8]/30 focus:bg-white transition-all outline-none font-bold text-base"
                         />
                       </div>
                     </motion.div>
@@ -225,7 +225,7 @@ const AuthPage = () => {
                           onChange={handleChange}
                           placeholder="381 000 0000"
                           required
-                          className="w-full pl-14 pr-6 py-4 bg-gradient-to-br from-slate-50 to-slate-100 border-2 border-slate-300 rounded-2xl focus:border-[#00A8E8] focus:ring-4 focus:ring-[#00A8E8]/30 focus:bg-white transition-all outline-none font-bold text-base"
+                          className="w-full pl-14 pr-6 py-4 bg-linear-to-br from-slate-50 to-slate-100 border-2 border-slate-300 rounded-2xl focus:border-[#00A8E8] focus:ring-4 focus:ring-[#00A8E8]/30 focus:bg-white transition-all outline-none font-bold text-base"
                         />
                       </div>
                     </motion.div>
@@ -250,7 +250,7 @@ const AuthPage = () => {
                       onChange={handleChange}
                       placeholder="tu@email.com"
                       required
-                      className="w-full pl-14 pr-6 py-4 bg-gradient-to-br from-slate-50 to-slate-100 border-2 border-slate-300 rounded-2xl focus:border-[#00A8E8] focus:ring-4 focus:ring-[#00A8E8]/30 focus:bg-white transition-all outline-none font-bold text-base"
+                      className="w-full pl-14 pr-6 py-4 bg-linear-to-br from-slate-50 to-slate-100 border-2 border-slate-300 rounded-2xl focus:border-[#00A8E8] focus:ring-4 focus:ring-[#00A8E8]/30 focus:bg-white transition-all outline-none font-bold text-base"
                     />
                   </div>
                 </motion.div>
@@ -273,7 +273,7 @@ const AuthPage = () => {
                       onChange={handleChange}
                       placeholder="••••••••••••"
                       required
-                      className="w-full pl-14 pr-14 py-4 bg-gradient-to-br from-slate-50 to-slate-100 border-2 border-slate-300 rounded-2xl focus:border-[#00A8E8] focus:ring-4 focus:ring-[#00A8E8]/30 focus:bg-white transition-all outline-none font-bold text-base"
+                      className="w-full pl-14 pr-14 py-4 bg-linear-to-br from-slate-50 to-slate-100 border-2 border-slate-300 rounded-2xl focus:border-[#00A8E8] focus:ring-4 focus:ring-[#00A8E8]/30 focus:bg-white transition-all outline-none font-bold text-base"
                     />
                     <button
                       type="button"
@@ -304,7 +304,7 @@ const AuthPage = () => {
                         onChange={handleChange}
                         placeholder="••••••••••••"
                         required
-                        className="w-full pl-14 pr-6 py-4 bg-gradient-to-br from-slate-50 to-slate-100 border-2 border-slate-300 rounded-2xl focus:border-[#00A8E8] focus:ring-4 focus:ring-[#00A8E8]/30 focus:bg-white transition-all outline-none font-bold text-base"
+                        className="w-full pl-14 pr-6 py-4 bg-linear-to-br from-slate-50 to-slate-100 border-2 border-slate-300 rounded-2xl focus:border-[#00A8E8] focus:ring-4 focus:ring-[#00A8E8]/30 focus:bg-white transition-all outline-none font-bold text-base"
                       />
                     </div>
                   </motion.div>
@@ -331,8 +331,8 @@ const AuthPage = () => {
                 type="submit"
                 className={`w-full mt-10 py-5 rounded-2xl font-black text-lg shadow-xl transition-all flex items-center justify-center gap-2 ${
                   isLogin
-                    ? 'bg-gradient-to-r from-[#00529B] via-[#1B5E9E] to-[#00A8E8] text-white shadow-blue-500/40 hover:shadow-2xl'
-                    : 'bg-gradient-to-r from-[#64BC26] via-[#7ed321] to-[#64BC26] text-white shadow-green-500/40 hover:shadow-2xl'
+                    ? 'bg-linear-to-r from-[#00529B] via-[#1B5E9E] to-[#00A8E8] text-white shadow-blue-500/40 hover:shadow-2xl'
+                    : 'bg-linear-to-r from-[#64BC26] via-[#7ed321] to-[#64BC26] text-white shadow-green-500/40 hover:shadow-2xl'
                 }`}
               >
                 {isLogin ? 'INICIAR SESIÓN' : 'CREAR CUENTA'} <ArrowRight size={20} />
@@ -349,7 +349,7 @@ const AuthPage = () => {
           </div>
 
           {/* Footer */}
-          <div className="bg-gradient-to-r from-slate-100/50 to-slate-50/50 px-10 py-6 text-center border-t-2 border-slate-200">
+          <div className="bg-linear-to-r from-slate-100/50 to-slate-50/50 px-10 py-6 text-center border-t-2 border-slate-200">
             <p className="text-base text-slate-700 font-bold">
               {isLogin ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?'}{' '}
               <motion.button

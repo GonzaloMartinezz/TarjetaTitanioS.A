@@ -11,7 +11,7 @@ const QuickOptionCard = ({ title, description, icon: Icon, onClick }) => (
     onClick={onClick}
     className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all border border-slate-100 cursor-pointer overflow-hidden relative"
   >
-    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#00A8E8]/20 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform" />
+    <div className="absolute top-0 right-0 w-24 h-24 bg-linear-to-br from-[#00A8E8]/20 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform" />
     <div className="relative z-10">
       <div className="w-12 h-12 bg-linear-to-br from-[#00529B]/20 to-[#64BC26]/20 rounded-xl flex items-center justify-center mb-4 group-hover:from-[#00529B]/40 group-hover:to-[#64BC26]/40 transition-all">
         <Icon className="text-[#00529B] group-hover:text-[#00A8E8] transition-colors" size={24} />
@@ -115,9 +115,9 @@ const ClientDashboard = () => {
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
           <div className="flex items-center justify-center gap-6 mb-8">
-            <div className="h-16 w-3 bg-gradient-to-b from-[#00529B] to-[#00A8E8] rounded-full" />
+            <div className="h-16 w-3 bg-linear-to-b from-[#00529B] to-[#00A8E8] rounded-full" />
             <h1 className="text-5xl md:text-6xl font-black text-[#00529B] uppercase tracking-tighter italic">Portal Cliente</h1>
-            <div className="h-16 w-3 bg-gradient-to-b from-[#00A8E8] to-[#64BC26] rounded-full" />
+            <div className="h-16 w-3 bg-linear-to-b from-[#00A8E8] to-[#64BC26] rounded-full" />
           </div>
           <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium">Accedé a todos tus servicios y beneficios exclusivos en un solo lugar</p>
         </motion.div>
@@ -137,10 +137,10 @@ const ClientDashboard = () => {
           {/* Tarjeta */}
           <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}>
             <div onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{ perspective: "1200px" }} className="relative flex justify-center lg:justify-start pt-6 group">
-              <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="relative w-full max-w-[480px]">
+              <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="relative w-full max-w-120">
                 <div className="absolute inset-4 bg-[#00529B]/40 blur-[70px] rounded-3xl -z-10 group-hover:bg-[#00A8E8]/50 transition-colors duration-500" />
-                <img src="/titanio-card.svg" alt="Tarjeta Titanio" className="w-full h-auto object-contain drop-shadow-2xl rounded-[1.5rem] group-hover:drop-shadow-[0_40px_40px_rgba(0,168,232,0.4)] transition-all duration-300" style={{ transform: "translateZ(100px)" }} />
-                <div className="absolute inset-0 z-20 rounded-[1.5rem] opacity-0 group-hover:opacity-30 transition-opacity duration-300 bg-gradient-to-tr from-transparent via-white/50 to-transparent pointer-events-none" />
+                <img src="/titanio-card.svg" alt="Tarjeta Titanio" className="w-full h-auto object-contain drop-shadow-2xl rounded-3xl group-hover:drop-shadow-[0_40px_40px_rgba(0,168,232,0.4)] transition-all duration-300" style={{ transform: "translateZ(100px)" }} />
+                <div className="absolute inset-0 z-20 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 bg-linear-to-tr from-transparent via-white/50 to-transparent pointer-events-none" />
               </motion.div>
             </div>
           </motion.div>
@@ -174,14 +174,14 @@ const ClientDashboard = () => {
 
         {/* FORMULARIO AMPLIADO CON DISEÑO MEJORADO */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto mb-20">
-          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-gradient-to-br from-[#00A8E8]/25 via-[#64BC26]/15 to-transparent rounded-full blur-3xl"></div>
-          <div className="relative bg-gradient-to-br from-white via-[#F0F8FF] to-[#F0FFF0] backdrop-blur-xl rounded-[2.5rem] shadow-2xl p-8 md:p-14 border-2 border-white/50 overflow-hidden">
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-linear-to-br from-[#00A8E8]/25 via-[#64BC26]/15 to-transparent rounded-full blur-3xl"></div>
+          <div className="relative bg-linear-to-br from-white via-[#F0F8FF] to-[#F0FFF0] backdrop-blur-xl rounded-[2.5rem] shadow-2xl p-8 md:p-14 border-2 border-white/50 overflow-hidden">
             {/* Decorative corners */}
             <div className="absolute top-0 right-0 w-40 h-40 bg-[#00A8E8]/10 rounded-full -mr-20 -mt-20 blur-2xl" />
             <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#64BC26]/10 rounded-full -ml-20 -mb-20 blur-2xl" />
             
             <div className="mb-12 text-center relative z-10">
-              <div className="bg-gradient-to-br from-[#00529B]/20 to-[#64BC26]/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+              <div className="bg-linear-to-br from-[#00529B]/20 to-[#64BC26]/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto">
                 <CreditCardIcon className="text-[#00529B]" size={32} />
               </div>
               <h2 className="text-3xl md:text-4xl font-black text-[#00529B] mb-3 tracking-tight">Solicitá tu Tarjeta Ahora</h2>
@@ -220,7 +220,7 @@ const ClientDashboard = () => {
                 <label className="text-sm font-black text-[#00529B] block mb-3">Tipo de Trabajo *</label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {['Público', 'Privado', 'Monotributista', 'Jubilado'].map(opt => (
-                    <label key={opt} className={`p-4 rounded-xl cursor-pointer border-2 transition-all font-bold text-center text-sm ${formData.tipoTrabajo === opt ? 'bg-gradient-to-r from-[#00529B] to-[#00A8E8] border-[#00529B] text-white shadow-lg shadow-blue-500/30' : 'bg-white/70 border-slate-300/50 text-slate-700 hover:border-[#00A8E8] hover:bg-white'}`}>
+                    <label key={opt} className={`p-4 rounded-xl cursor-pointer border-2 transition-all font-bold text-center text-sm ${formData.tipoTrabajo === opt ? 'bg-linear-to-r from-[#00529B] to-[#00A8E8] border-[#00529B] text-white shadow-lg shadow-blue-500/30' : 'bg-white/70 border-slate-300/50 text-slate-700 hover:border-[#00A8E8] hover:bg-white'}`}>
                       <input type="radio" name="tipoTrabajo" value={opt} className="hidden" onChange={handleChange} />
                       {opt}
                     </label>
@@ -232,7 +232,7 @@ const ClientDashboard = () => {
                 <label className="text-sm font-black text-[#00529B] block mb-3">Categoría de Cliente *</label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {['Particular', 'Empresario', 'Asesor Fiscal', 'Otro'].map(opt => (
-                    <label key={opt} className={`p-4 rounded-xl cursor-pointer border-2 transition-all font-bold text-center text-sm ${formData.publico === opt ? 'bg-gradient-to-r from-[#64BC26] to-[#7ed321] border-[#64BC26] text-white shadow-lg shadow-green-500/30' : 'bg-white/70 border-slate-300/50 text-slate-700 hover:border-[#64BC26] hover:bg-white'}`}>
+                    <label key={opt} className={`p-4 rounded-xl cursor-pointer border-2 transition-all font-bold text-center text-sm ${formData.publico === opt ? 'bg-linear-to-r from-[#64BC26] to-[#7ed321] border-[#64BC26] text-white shadow-lg shadow-green-500/30' : 'bg-white/70 border-slate-300/50 text-slate-700 hover:border-[#64BC26] hover:bg-white'}`}>
                       <input type="radio" name="publico" value={opt} className="hidden" onChange={handleChange} />
                       {opt}
                     </label>
@@ -240,7 +240,7 @@ const ClientDashboard = () => {
                 </div>
               </div>
 
-              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" className="w-full bg-gradient-to-r from-[#00529B] via-[#00A8E8] to-[#00529B] text-white py-6 rounded-2xl font-black text-lg shadow-xl shadow-blue-300 hover:shadow-2xl transition-all mt-8">
+              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" className="w-full bg-linear-to-r from-[#00529B] via-[#00A8E8] to-[#00529B] text-white py-6 rounded-2xl font-black text-lg shadow-xl shadow-blue-300 hover:shadow-2xl transition-all mt-8">
                 {submitted ? '✓ ¡SOLICITUD ENVIADA!' : 'SOLICITAR AHORA'}
               </motion.button>
               <p className="text-xs text-center text-slate-500 font-medium">Los campos marcados con * son obligatorios</p>
@@ -256,10 +256,10 @@ const ClientDashboard = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }}>
               <div onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{ perspective: "1200px" }} className="relative flex justify-center lg:justify-start pt-6 group">
-                <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="relative w-full max-w-[480px]">
-                  <div className="absolute inset-4 bg-gradient-to-br from-[#FF6666]/40 to-[#00A8E8]/20 blur-[70px] rounded-3xl -z-10 group-hover:from-[#FF4444]/50 group-hover:to-[#00A8E8]/40 transition-colors duration-500" />
-                  <img src="/argencard.svg" alt="ArgenCard" className="w-full h-auto object-contain drop-shadow-2xl rounded-[1.5rem] group-hover:drop-shadow-[0_60px_60px_rgba(255,68,68,0.3)] transition-all duration-300" style={{ transform: "translateZ(100px)" }} />
-                  <div className="absolute inset-0 z-20 rounded-[1.5rem] opacity-0 group-hover:opacity-30 transition-opacity duration-300 bg-gradient-to-tr from-transparent via-white/50 to-transparent pointer-events-none" />
+                <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="relative w-full max-w-120">
+                  <div className="absolute inset-4 bg-linear-to-br from-[#FF6666]/40 to-[#00A8E8]/20 blur-[70px] rounded-3xl -z-10 group-hover:from-[#FF4444]/50 group-hover:to-[#00A8E8]/40 transition-colors duration-500" />
+                  <img src="/argencard.svg" alt="ArgenCard" className="w-full h-auto object-contain drop-shadow-2xl rounded-3xl group-hover:drop-shadow-[0_60px_60px_rgba(255,68,68,0.3)] transition-all duration-300" style={{ transform: "translateZ(100px)" }} />
+                  <div className="absolute inset-0 z-20 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 bg-linear-to-b from-transparent via-white/50 to-transparent pointer-events-none" />
                 </motion.div>
               </div>
             </motion.div>
@@ -286,7 +286,7 @@ const ClientDashboard = () => {
                   </motion.div>
                 ))}
               </div>
-              <motion.button onClick={() => goToSection('argencard')} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full bg-gradient-to-r from-[#FF4444] to-[#FF6666] text-white py-6 rounded-2xl font-black text-lg shadow-xl shadow-red-400/50 hover:shadow-2xl transition-all mt-10 mb-8">
+              <motion.button onClick={() => goToSection('argencard')} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full bg-linear-to-r from-[#FF4444] to-[#FF6666] text-white py-6 rounded-2xl font-black text-lg shadow-xl shadow-red-400/50 hover:shadow-2xl transition-all mt-10 mb-8">
                 SOLICITAR ARGENCARD AHORA
               </motion.button>
             </motion.div>
@@ -314,7 +314,7 @@ const ClientDashboard = () => {
         {/* Modal */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: showModal ? 1 : 0 }} transition={{ duration: 0.3 }} className={`fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 ${showModal ? 'pointer-events-auto' : 'pointer-events-none'}`}>
           <motion.div initial={{ scale: 0.8, y: 20 }} animate={{ scale: showModal ? 1 : 0.8, y: showModal ? 0 : 20 }} className="bg-white rounded-3xl p-12 max-w-md w-full mx-4 shadow-2xl text-center">
-            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2, type: "spring" }} className="w-20 h-20 bg-gradient-to-br from-[#64BC26] to-[#7ed321] rounded-full flex items-center justify-center mx-auto mb-6">
+            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2, type: "spring" }} className="w-20 h-20 bg-linear-to-br from-[#64BC26] to-[#7ed321] rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle2 size={48} className="text-white" strokeWidth={2} />
             </motion.div>
             <h3 className="text-3xl font-black text-[#00529B] mb-3">¡Solicitud Enviada!</h3>

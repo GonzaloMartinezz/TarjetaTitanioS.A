@@ -68,7 +68,7 @@ const About = () => {
             className="bg-white rounded-3xl p-8 md:p-10 shadow-lg border border-slate-100"
           >
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 bg-[#00529B]/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+              <div className="w-14 h-14 bg-[#00529B]/10 rounded-2xl flex items-center justify-center shrink-0">
                 <Award className="text-[#00529B]" size={28} />
               </div>
               <h2 className="text-2xl sm:text-3xl font-black text-[#00529B]">Misión</h2>
@@ -84,7 +84,7 @@ const About = () => {
             className="bg-linear-to-br from-[#64BC26] to-[#4e941d] rounded-3xl p-8 md:p-10 shadow-lg text-white"
           >
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+              <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center shrink-0">
                 <Globe className="text-white" size={28} />
               </div>
               <h2 className="text-2xl sm:text-3xl font-black">Visión</h2>
@@ -140,7 +140,7 @@ const About = () => {
           <p className="text-slate-700 leading-relaxed mb-6 text-base sm:text-lg">
             Con Tarjeta Titanio también podrás acceder a <span className="font-bold">Servicios tales como Adelantos en Efectivo, Promociones y Descuentos Exclusivos, amplia opciones de Débitos Automáticos, Tarjetas Adicionales Sin Cargo</span>. Además, también podés presenciar los exclusivos shows que sólo Titanio Eventos puede brindarte.
           </p>
-          <p className="text-slate-700 leading-relaxed font-semibold text-base sm:text-lg text-[#00529B]">
+          <p className="leading-relaxed font-semibold text-base sm:text-lg text-[#00529B]">
             Queremos agradecerte por confiar en el Sistema Integral de Tarjeta Titanio y esperamos que nuestra relación sea fructífera y duradera.
           </p>
         </motion.div>
@@ -164,21 +164,21 @@ const About = () => {
                 <h3 className="text-2xl font-black text-[#00529B] mb-6">{sucursal.nombre}</h3>
                 <div className="space-y-4">
                   <div className="flex gap-4 items-start">
-                    <MapPin className="text-[#00A8E8] flex-shrink-0 mt-1" size={24} />
+                    <MapPin className="text-[#00A8E8] shrink-0 mt-1" size={24} />
                     <div>
                       <p className="text-sm text-slate-500 font-semibold">DIRECCIÓN</p>
                       <p className="text-slate-700">{sucursal.direccion}</p>
                     </div>
                   </div>
                   <div className="flex gap-4 items-start">
-                    <Phone className="text-[#64BC26] flex-shrink-0 mt-1" size={24} />
+                    <Phone className="text-[#64BC26] shrink-0 mt-1" size={24} />
                     <div>
                       <p className="text-sm text-slate-500 font-semibold">TELÉFONO</p>
                       <p className="text-slate-700">{sucursal.telefono}</p>
                     </div>
                   </div>
                   <div className="flex gap-4 items-start">
-                    <Briefcase className="text-[#00529B] flex-shrink-0 mt-1" size={24} />
+                    <Briefcase className="text-[#00529B] shrink-0 mt-1" size={24} />
                     <div>
                       <p className="text-sm text-slate-500 font-semibold">CÓDIGO POSTAL</p>
                       <p className="text-slate-700">{sucursal.codigo}</p>
@@ -239,7 +239,7 @@ const About = () => {
           className="bg-white rounded-3xl p-8 md:p-12 shadow-lg border border-slate-100"
         >
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-16 h-16 bg-[#64BC26]/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <div className="w-16 h-16 bg-[#64BC26]/10 rounded-2xl flex items-center justify-center shrink-0">
               <Briefcase className="text-[#64BC26]" size={32} />
             </div>
             <h2 className="text-3xl sm:text-4xl font-black text-[#00529B]">Trabajá con Nosotros</h2>

@@ -28,7 +28,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           {/* 1. Logo - Más grande e imponente */}
           <Link to="/" className="shrink-0 group">
-            <div className="h-16 w-16 sm:h-20 sm:w-50 rounded-full overflow-hidden border-1 border-green-300 shadow-sm transition-transform group-hover:scale-105">
+            <div className="h-16 w-16 sm:h-20 sm:w-50 rounded-full overflow-hidden shadow-sm transition-transform group-hover:scale-105">
               <img
                 src="/1.4.png"
                 alt="Tarjeta Titanio"
@@ -73,12 +73,12 @@ const Navbar = () => {
                   onClick={() => setProfileOpen(!profileOpen)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="hidden sm:flex items-center gap-3 bg-gradient-to-r from-[#00529B] to-[#00A8E8] text-white px-5 py-2 rounded-full text-[11px] font-black shadow-lg hover:shadow-xl transition-all"
+                  className="hidden sm:flex items-center gap-3 bg-linear-to-r from-[#00529B] to-[#00A8E8] text-white px-5 py-2 rounded-full text-[11px] font-black shadow-lg hover:shadow-xl transition-all"
                 >
                   <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                     <User size={16} />
                   </div>
-                  <span className="truncate max-w-[120px]">{user.nombre || 'Usuario'}</span>
+                  <span className="truncate max-w-30">{user.nombre || 'Usuario'}</span>
                 </motion.button>
 
                 {/* Dropdown Menu - Right to Left Slide */}
@@ -103,7 +103,7 @@ const Navbar = () => {
                         className="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50"
                       >
                         {/* Header */}
-                        <div className="bg-gradient-to-r from-[#00529B] to-[#00A8E8] p-6 text-white">
+                        <div className="bg-linear-to-r from-[#00529B] to-[#00A8E8] p-6 text-white">
                           <h3 className="font-black text-lg mb-1">{user.nombre || 'Usuario'}</h3>
                           <p className="text-sm text-white/80">{user.apellido || ''}</p>
                           <p className="text-xs text-white/70 mt-2">📧 {user.email}</p>
@@ -144,7 +144,7 @@ const Navbar = () => {
                 {/* Mobile Profile Button */}
                 <motion.button
                   onClick={() => setProfileOpen(!profileOpen)}
-                  className="sm:hidden flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-[#00529B] to-[#00A8E8] text-white font-black text-sm"
+                  className="sm:hidden flex items-center justify-center w-10 h-10 rounded-full bg-linear-to-r from-[#00529B] to-[#00A8E8] text-white font-black text-sm"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -221,7 +221,7 @@ const Navbar = () => {
             <div className="pt-4 flex flex-col gap-4">
               {user ? (
                 <>
-                  <div className="bg-gradient-to-r from-[#00529B] to-[#00A8E8] text-white p-4 rounded-2xl">
+                  <div className="bg-linear-to-r from-[#00529B] to-[#00A8E8] text-white p-4 rounded-2xl">
                     <p className="font-black text-base">{user.nombre} {user.apellido}</p>
                     <p className="text-xs text-white/80 mt-1">{user.email}</p>
                   </div>

@@ -13,7 +13,7 @@ const QuickOptionCard = ({ title, description, icon: Icon, onClick }) => (
     onClick={onClick}
     className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all border border-slate-100 cursor-pointer overflow-hidden relative"
   >
-    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#00A8E8]/20 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform" />
+    <div className="absolute top-0 right-0 w-24 h-24 bg-linear-to-br from-[#00A8E8]/20 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform" />
     <div className="relative z-10">
       <div className="w-12 h-12 bg-linear-to-br from-[#00529B]/20 to-[#64BC26]/20 rounded-xl flex items-center justify-center mb-4 group-hover:from-[#00529B]/40 group-hover:to-[#64BC26]/40 transition-all">
         <Icon className="text-[#00529B] group-hover:text-[#00A8E8] transition-colors" size={24} />
@@ -110,9 +110,9 @@ const Home = () => {
           className="text-center mb-16"
         >
           <div className="flex items-center justify-center gap-6 mb-8">
-            <div className="h-16 w-3 bg-gradient-to-b from-[#00529B] to-[#00A8E8] rounded-full" />
+            <div className="h-16 w-3 bg-linear-to-b from-[#00529B] to-[#00A8E8] rounded-full" />
             <h2 className="text-5xl md:text-6xl font-black text-[#00529B] uppercase tracking-tighter italic">Portal Clientes</h2>
-            <div className="h-16 w-3 bg-gradient-to-b from-[#00A8E8] to-[#64BC26] rounded-full" />
+            <div className="h-16 w-3 bg-linear-to-b from-[#00A8E8] to-[#64BC26] rounded-full" />
           </div>
           <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium">Accedé a todos tus servicios y beneficios exclusivos en un solo lugar</p>
         </motion.div>
@@ -135,7 +135,7 @@ const Home = () => {
       </section>
 
       {/* SECCIÓN ARGENCARD CON EFECTO 3D */}
-      <section className="bg-gradient-to-r from-[#00529B] via-[#00A8E8] to-[#00529B] py-20 px-4 sm:px-6 relative overflow-hidden">
+      <section className="bg-linear-to-r from-[#00529B] via-[#00A8E8] to-[#00529B] py-20 px-4 sm:px-6 relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
@@ -168,13 +168,13 @@ const Home = () => {
             >
               <motion.div 
                 style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} 
-                className="relative w-full max-w-[480px]"
+                className="relative w-full max-w-120"
               >
                 {/* Sombra dinámica que reacciona al movimiento */}
                 <div className="absolute inset-6 bg-white/30 blur-[70px] rounded-3xl -z-10 group-hover:bg-white/50 transition-colors duration-500"></div>
                 
                 {/* Sombra de fondo más sólida */}
-                <div className="absolute inset-4 bg-gradient-to-b from-black/20 to-black/40 blur-[50px] rounded-3xl -z-10" />
+                <div className="absolute inset-4 bg-linear-to-b from-black/20 to-black/40 blur-[50px] rounded-3xl -z-10" />
                 
                 {/* Tarjeta ArgenCard renderizada */}
                 <ArgenCardComponent interactive={true} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{ transform: "translateZ(100px)" }} />
@@ -198,7 +198,7 @@ const Home = () => {
               VER MAPA
           </button>
         </motion.div>
-          <motion.div whileHover={{ y: -10 }} className="bg-gradient-to-br from-[#64BC26] to-[#4e941d] rounded-[3rem] p-12 text-white flex flex-col justify-center shadow-xl transition-all">
+          <motion.div whileHover={{ y: -10 }} className="bg-linear-to-br from-[#64BC26] to-[#4e941d] rounded-[3rem] p-12 text-white flex flex-col justify-center shadow-xl transition-all">
              <Tag className="mb-6" size={56} />
              <h3 className="text-3xl font-black mb-4 uppercase italic tracking-tighter">Promociones</h3>
              <p className="opacity-90 mb-8 font-medium">Aprovechá beneficios exclusivos todos los días.</p>
@@ -213,7 +213,7 @@ const Home = () => {
       </section>
 
       {/* INFORMACIÓN PARA USUARIOS FINANCIEROS - BANCO CENTRAL */}
-      <section className="bg-gradient-to-br from-white via-slate-50 to-slate-100 py-20 px-4 sm:px-6">
+      <section className="bg-linear-to-br from-white via-slate-50 to-slate-100 py-20 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -231,8 +231,8 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all border border-slate-200 overflow-hidden group"
             >
-              <div className="bg-gradient-to-r from-[#002855] to-[#00529B] h-24 flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#00A8E8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="bg-linear-to-r from-[#002855] to-[#00529B] h-24 flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-linear-to-r from-[#00A8E8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <p className="text-white font-black text-2xl relative z-10">BCRA</p>
               </div>
               <div className="p-8">
@@ -242,7 +242,7 @@ const Home = () => {
                   href="https://www.bcra.gob.ar/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-full bg-gradient-to-r from-[#002855] to-[#00529B] text-white py-3 rounded-xl font-black hover:shadow-lg transition-all group/btn"
+                  className="inline-flex items-center justify-center w-full bg-linear-to-r from-[#002855] to-[#00529B] text-white py-3 rounded-xl font-black hover:shadow-lg transition-all group/btn"
                 >
                   Ir al BCRA <span className="ml-2 group-hover/btn:translate-x-1 transition-transform">→</span>
                 </a>
@@ -256,8 +256,8 @@ const Home = () => {
               transition={{ delay: 0.1 }}
               className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all border border-slate-200 overflow-hidden group"
             >
-              <div className="bg-gradient-to-r from-[#64BC26] to-[#7ed321] h-24 flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="bg-linear-to-r from-[#64BC26] to-[#7ed321] h-24 flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-linear-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <svg className="w-12 h-12 text-white relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -265,7 +265,7 @@ const Home = () => {
               <div className="p-8">
                 <h3 className="text-2xl font-black text-[#64BC26] mb-4">Tasas y Cargos</h3>
                 <p className="text-slate-600 mb-6 font-medium">Conocé todas las tasas de interés, comisiones y cargos vigentes de nuestros servicios.</p>
-                <button className="w-full bg-gradient-to-r from-[#64BC26] to-[#7ed321] text-white py-3 rounded-xl font-black hover:shadow-lg transition-all group/btn">
+                <button className="w-full bg-linear-to-r from-[#64BC26] to-[#7ed321] text-white py-3 rounded-xl font-black hover:shadow-lg transition-all group/btn">
                   Ver Detalles <span className="ml-2 group-hover/btn:translate-x-1 transition-transform">→</span>
                 </button>
               </div>
@@ -278,8 +278,8 @@ const Home = () => {
               transition={{ delay: 0.2 }}
               className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all border border-slate-200 overflow-hidden group"
             >
-              <div className="bg-gradient-to-r from-[#FF6B6B] to-[#FF8E8E] h-24 flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="bg-linear-to-r from-[#FF6B6B] to-[#FF8E8E] h-24 flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-linear-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <svg className="w-12 h-12 text-white relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4v2m0 4v2m0-14v2m0-4v2m0-4v2" />
                 </svg>
@@ -287,7 +287,7 @@ const Home = () => {
               <div className="p-8">
                 <h3 className="text-2xl font-black text-[#FF6B6B] mb-4">Advertencias</h3>
                 <p className="text-slate-600 mb-6 font-medium">Información importante sobre fraude y recomendaciones de seguridad para usuarios.</p>
-                <button className="w-full bg-gradient-to-r from-[#FF6B6B] to-[#FF8E8E] text-white py-3 rounded-xl font-black hover:shadow-lg transition-all group/btn">
+                <button className="w-full bg-linear-to-r from-[#FF6B6B] to-[#FF8E8E] text-white py-3 rounded-xl font-black hover:shadow-lg transition-all group/btn">
                   Leer Más <span className="ml-2 group-hover/btn:translate-x-1 transition-transform">→</span>
                 </button>
               </div>
