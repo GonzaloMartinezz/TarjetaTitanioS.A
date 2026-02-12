@@ -1,9 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X, Facebook, Instagram } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, X, Facebook, Instagram, LogOut, User, Settings } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "../../store/AuthContext";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    setProfileOpen(false);
+    navigate('/');
+  };
 
   // Estilo común para el efecto de subrayado animado
   const navLinkStyle =
@@ -53,15 +64,101 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* 3. Acciones Derecha - Mi Cuenta y Redes */}
-          <div className="flex items-center gap-6">
-            {/* Botón Mi Cuenta - Más compacto y elegante */}
-            <Link
-              to="/login"
-              className="hidden sm:block bg-[#00529B] text-white px-6 py-2 rounded-full text-[11px] font-black shadow-md hover:bg-[#003d75] transition-all active:scale-95"
-            >
-              MI CUENTA
-            </Link>
+          {/* 3. Acciones Derecha - Mi Cuenta / Perfil Usuario y Redes */}
+          <div className="flex items-center gap-4 sm:gap-6">
+            {/* Perfil de Usuario Logueado O Botón MI CUENTA */}
+            {user ? (
+              <div className="relative">
+                <motion.button
+                  onClick={() => setProfileOpen(!profileOpen)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="hidden sm:flex items-center gap-3 bg-gradient-to-r from-[#00529B] to-[#00A8E8] text-white px-5 py-2 rounded-full text-[11px] font-black shadow-lg hover:shadow-xl transition-all"
+                >
+                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                    <User size={16} />
+                  </div>
+                  <span className="truncate max-w-[120px]">{user.nombre || 'Usuario'}</span>
+                </motion.button>
+
+                {/* Dropdown Menu - Right to Left Slide */}
+                <AnimatePresence>
+                  {profileOpen && (
+                    <>
+                      {/* Backdrop */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setProfileOpen(false)}
+                        className="fixed inset-0 z-40"
+                      />
+                      
+                      {/* Dropdown */}
+                      <motion.div
+                        initial={{ opacity: 0, x: 100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 100 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50"
+                      >
+                        {/* Header */}
+                        <div className="bg-gradient-to-r from-[#00529B] to-[#00A8E8] p-6 text-white">
+                          <h3 className="font-black text-lg mb-1">{user.nombre || 'Usuario'}</h3>
+                          <p className="text-sm text-white/80">{user.apellido || ''}</p>
+                          <p className="text-xs text-white/70 mt-2">📧 {user.email}</p>
+                          <p className="text-xs text-white/70 mt-1">📱 {user.celular}</p>
+                        </div>
+
+                        {/* Menu Items */}
+                        <div className="p-2 space-y-1">
+                          <motion.button
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.1 }}
+                            onClick={() => {
+                              navigate('/clientes');
+                              setProfileOpen(false);
+                            }}
+                            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-50 transition-colors font-bold text-[#00529B]"
+                          >
+                            <User size={18} />
+                            <span>Mi Perfil</span>
+                          </motion.button>
+                          <motion.button
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.15 }}
+                            onClick={handleLogout}
+                            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-50 transition-colors font-bold text-red-600"
+                          >
+                            <LogOut size={18} />
+                            <span>Cerrar Sesión</span>
+                          </motion.button>
+                        </div>
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
+
+                {/* Mobile Profile Button */}
+                <motion.button
+                  onClick={() => setProfileOpen(!profileOpen)}
+                  className="sm:hidden flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-[#00529B] to-[#00A8E8] text-white font-black text-sm"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {user.nombre ? user.nombre[0].toUpperCase() : 'U'}
+                </motion.button>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="hidden sm:block bg-[#00529B] text-white px-6 py-2 rounded-full text-[11px] font-black shadow-md hover:bg-[#003d75] transition-all active:scale-95"
+              >
+                MI CUENTA
+              </Link>
+            )}
 
             {/* Redes Sociales - Al final */}
             <div className="hidden lg:flex items-center gap-4 border-l border-slate-200 pl-6">
@@ -122,13 +219,28 @@ const Navbar = () => {
               NUESTRA EMPRESA
             </Link>
             <div className="pt-4 flex flex-col gap-4">
-              <Link
-                to="/login"
-                className="bg-[#00529B] text-white py-4 rounded-2xl font-black text-center shadow-lg"
-                onClick={() => setMobileOpen(false)}
-              >
-                MI CUENTA
-              </Link>
+              {user ? (
+                <>
+                  <div className="bg-gradient-to-r from-[#00529B] to-[#00A8E8] text-white p-4 rounded-2xl">
+                    <p className="font-black text-base">{user.nombre} {user.apellido}</p>
+                    <p className="text-xs text-white/80 mt-1">{user.email}</p>
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="bg-red-600 text-white py-4 rounded-2xl font-black text-center shadow-lg flex items-center justify-center gap-2"
+                  >
+                    <LogOut size={20} /> CERRAR SESIÓN
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  className="bg-[#00529B] text-white py-4 rounded-2xl font-black text-center shadow-lg"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  MI CUENTA
+                </Link>
+              )}
               <div className="flex justify-center gap-10 py-4 border-t border-slate-100 mt-2">
                 <Facebook size={30} className="text-[#00529B]" />
                 <Instagram size={30} className="text-[#E4405F]" />

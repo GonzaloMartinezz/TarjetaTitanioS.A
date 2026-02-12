@@ -1,42 +1,54 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { CreditCard as CreditCardIcon, CheckCircle2, Wallet, Gift, Zap, Shield, TrendingUp, Clock, Users, Headphones } from 'lucide-react';
+import { CreditCard as CreditCardIcon, CheckCircle2, Wallet, Gift, Zap, Shield, TrendingUp, Clock, Users, Headphones, ArrowRight, Phone, Store, MessageCircle } from 'lucide-react';
+
+// Componente de Card para opciones rápidas
+const QuickOptionCard = ({ title, description, icon: Icon, onClick }) => (
+  <motion.div
+    whileHover={{ y: -8, scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
+    onClick={onClick}
+    className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all border border-slate-100 cursor-pointer overflow-hidden relative"
+  >
+    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#00A8E8]/20 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform" />
+    <div className="relative z-10">
+      <div className="w-12 h-12 bg-linear-to-br from-[#00529B]/20 to-[#64BC26]/20 rounded-xl flex items-center justify-center mb-4 group-hover:from-[#00529B]/40 group-hover:to-[#64BC26]/40 transition-all">
+        <Icon className="text-[#00529B] group-hover:text-[#00A8E8] transition-colors" size={24} />
+      </div>
+      <h3 className="text-xl font-black text-[#00529B] mb-2 group-hover:text-[#00A8E8] transition-colors">{title}</h3>
+      <p className="text-slate-600 mb-4 group-hover:text-slate-700 transition-colors font-medium text-sm">{description}</p>
+      <div className="flex items-center text-[#00A8E8] font-bold group-hover:translate-x-1 transition-transform">
+        Más info <ArrowRight size={16} className="ml-2" />
+      </div>
+    </div>
+  </motion.div>
+);
 
 const ClientDashboard = () => {
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ dni: '', nombre: '', celular: '', email: '', empleo: '' });
+  const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({ dni: '', nombre: '', apellido: '', celular: '', email: '', tipoTrabajo: '', publico: '' });
 
-  // --- LÓGICA DE EFECTO 3D ---
+  // --- LÓGICA DE EFECTO 3D SUAVE ---
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-
-  // Suavizado del movimiento
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
-
-  // Transformación de coordenadas a rotación (Inclinación de 15 grados)
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 20 });
+  
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["6deg", "-6deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-6deg", "6deg"]);
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-
-    x.set(xPct);
-    y.set(yPct);
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
   };
 
   const handleMouseLeave = () => {
     x.set(0);
     y.set(0);
   };
-  // ---------------------------
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -44,243 +56,277 @@ const ClientDashboard = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!formData.dni || !formData.nombre || !formData.apellido || !formData.celular || !formData.email || !formData.tipoTrabajo || !formData.publico) {
+      alert('Por favor completa todos los campos');
+      return;
+    }
+    setShowModal(true);
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setTimeout(() => {
+      setShowModal(false);
+      setSubmitted(false);
+      setFormData({ dni: '', nombre: '', apellido: '', celular: '', email: '', tipoTrabajo: '', publico: '' });
+    }, 5000);
   };
 
+  const navigate = useNavigate();
+
+  const goToSection = (id) => {
+    const el = typeof document !== 'undefined' && document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    navigate(`/clientes#${id}`);
+  };
+
+  const handleQuickClick = (title) => {
+    const t = (title || '').toLowerCase();
+    if (t.includes('tarjeta') || t.includes('titanio')) return goToSection('tarjeta');
+    if (t.includes('argen') || t.includes('argencard')) return goToSection('argencard');
+    // map common quick options to dedicated routes
+    if (t.includes('estado')) return navigate('/clientes/estado');
+    if (t.includes('pagar') || t.includes('deuda')) return navigate('/clientes/pagos');
+    if (t.includes('cambiar') || t.includes('límite')) return navigate('/clientes/limite');
+    if (t.includes('reportar') || t.includes('problemas') || t.includes('fraude')) return navigate('/clientes/reportes');
+    if (t.includes('promoc') || t.includes('promoción')) return navigate('/clientes/promociones');
+    if (t.includes('adicional') || t.includes('tarjetas')) return navigate('/clientes/tarjetas');
+    if (t.includes('adelanto')) return navigate('/clientes/adelantos');
+    if (t.includes('contacto') || t.includes('atención') || t.includes('contacto directo')) return navigate('/contacto');
+
+    // fallback: open client home
+    navigate('/clientes');
+  };
+
+  const opccionesRapidas = [
+    { title: "Mi Estado de Cuenta", description: "Revisá tu saldo, movimientos y estados de tu tarjeta", icon: TrendingUp },
+    { title: "Pagar mi Deuda", description: "Realizá pagos en línea de forma segura e inmediata", icon: CreditCardIcon },
+    { title: "Cambiar Límite de Crédito", description: "Solicitá un ajuste en tu límite de crédito disponible", icon: Gift },
+    { title: "Reportar Problemas", description: "Notificá fraude, transacciones no autorizadas o daños", icon: Shield },
+    { title: "Consulta de Promociones", description: "Consulta promociones y beneficios vigentes exclusivos", icon: Wallet },
+    { title: "Gestión de Tarjetas Adicionales", description: "Administrá, bloquea o solicita tarjetas adicionales", icon: Users },
+    { title: "Solicitar Adelanto", description: "Solicita adelantos de efectivo con tasas especiales", icon: Zap },
+    { title: "Contacto Directo", description: "Conecta con nuestro equipo de atención al cliente", icon: Headphones }
+  ];
+
   return (
-    <div className="min-h-screen pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 bg-[#F1F5F9]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Divider */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="my-12 border-t-2 border-slate-300/50"
-        />
-        
-        {/* Header Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12 sm:mb-16"
-        >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#00529B] mb-3 sm:mb-4 uppercase tracking-tighter italic">Portal Clientes</h1>
-          <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium">Solicitá tu tarjeta Titanio hoy y comenzá a disfrutar de beneficios exclusivos</p>
+    <div className="min-h-screen flex flex-col pt-40 pb-12 bg-[#F1F5F9]">
+      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Header */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
+          <div className="flex items-center justify-center gap-6 mb-8">
+            <div className="h-16 w-3 bg-gradient-to-b from-[#00529B] to-[#00A8E8] rounded-full" />
+            <h1 className="text-5xl md:text-6xl font-black text-[#00529B] uppercase tracking-tighter italic">Portal Cliente</h1>
+            <div className="h-16 w-3 bg-gradient-to-b from-[#00A8E8] to-[#64BC26] rounded-full" />
+          </div>
+          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium">Accedé a todos tus servicios y beneficios exclusivos en un solo lugar</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
-          
-          {/* LADO IZQUIERDO: Imagen con Efecto 3D Increíble */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="space-y-12"
-          >
-            <div 
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              style={{ perspective: "1000px" }} // Profundidad de la escena
-              className="relative flex justify-center lg:justify-start pt-6 group"
-            >
-              <motion.div
-                style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-                className="relative w-full max-w-[480px]"
-              >
-                {/* Sombra dinámica que reacciona al movimiento */}
-                <div className="absolute inset-4 bg-[#00529B]/30 blur-[60px] rounded-3xl -z-10 group-hover:bg-[#00A8E8]/40 transition-colors duration-500" />
-                
-                {/* Imagen de la Tarjeta con relieve */}
-                <img 
-                  src="/public/titanio-card.svg" 
-                  alt="Tarjeta Titanio" 
-                  className="w-full h-auto object-contain drop-shadow-2xl rounded-[1.5rem]"
-                  style={{ transform: "translateZ(75px)" }} // Saca la tarjeta hacia afuera
-                />
+        {/* Opciones Rápidas */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mb-20">
+          <h2 className="text-2xl md:text-3xl font-black text-[#00529B] mb-10 text-center uppercase">¿Qué necesitás?</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {opccionesRapidas.map((opcion, i) => (
+              <QuickOptionCard key={i} title={opcion.title} description={opcion.description} icon={opcion.icon} onClick={() => handleQuickClick(opcion.title)} />
+            ))}
+          </div>
+        </motion.div>
 
-                {/* Efecto de Brillo (Glint) que aparece al pasar el mouse */}
-                <div className="absolute inset-0 z-20 rounded-[1.5rem] opacity-0 group-hover:opacity-40 transition-opacity duration-300 bg-linear-to-tr from-transparent via-white/40 to-transparent pointer-events-none" />
+        {/* SECCIÓN TARJETA TITANIO */}
+        <div id="tarjeta" className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center mb-24">
+          {/* Tarjeta */}
+          <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}>
+            <div onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{ perspective: "1200px" }} className="relative flex justify-center lg:justify-start pt-6 group">
+              <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="relative w-full max-w-[480px]">
+                <div className="absolute inset-4 bg-[#00529B]/40 blur-[70px] rounded-3xl -z-10 group-hover:bg-[#00A8E8]/50 transition-colors duration-500" />
+                <img src="/titanio-card.svg" alt="Tarjeta Titanio" className="w-full h-auto object-contain drop-shadow-2xl rounded-[1.5rem] group-hover:drop-shadow-[0_40px_40px_rgba(0,168,232,0.4)] transition-all duration-300" style={{ transform: "translateZ(100px)" }} />
+                <div className="absolute inset-0 z-20 rounded-[1.5rem] opacity-0 group-hover:opacity-30 transition-opacity duration-300 bg-gradient-to-tr from-transparent via-white/50 to-transparent pointer-events-none" />
               </motion.div>
-            </div>
-
-            {/* Lista de Beneficios */}
-            <div className="space-y-6">
-              <h3 className="text-2xl font-black text-[#00529B] uppercase tracking-tight">¿Por qué elegir Titanio?</h3>
-              <div className="grid grid-cols-1 gap-3">
-                {["Cuotas sin interés en compras", "Cashback en comercios adheridos", "Acceso a promociones exclusivas", "Sin costo anual de tarjeta", "Mi Titanio digital disponible"].map((benefit, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex items-center gap-4 p-4 bg-white/60 border border-white rounded-2xl shadow-sm hover:shadow-md transition-all hover:bg-white"
-                  >
-                    <div className="bg-[#64BC26]/10 p-1.5 rounded-full">
-                      <CheckCircle2 className="text-[#64BC26] shrink-0" size={20} strokeWidth={3} />
-                    </div>
-                    <span className="font-bold text-slate-700">{benefit}</span>
-                  </motion.div>
-                ))}
-              </div>
             </div>
           </motion.div>
 
-          {/* LADO DERECHO: Formulario (Mismo estilo anterior) */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="relative"
-          >
-            <div className="absolute -top-10 -right-10 w-64 h-64 bg-[#00A8E8]/10 rounded-full blur-3xl" />
-            <div className="relative bg-white/95 backdrop-blur-md rounded-[2.5rem] shadow-2xl p-8 md:p-12 border border-white">
-              <div className="mb-8">
-                <div className="bg-[#00529B]/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
-                  <CreditCardIcon className="text-[#00529B]" size={32} />
-                </div>
-                <h2 className="text-3xl font-black text-[#00529B] mb-2 tracking-tight">Solicitá tu Titanio</h2>
-                <p className="text-slate-500 font-medium">Completá el formulario y recibí tu tarjeta en días</p>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input type="text" name="dni" required placeholder="DNI" className="w-full p-4 bg-slate-100 border-2 border-transparent focus:border-[#00A8E8] rounded-2xl transition-all outline-none font-bold" />
-                  <input type="text" name="nombre" required placeholder="Nombre Completo" className="w-full p-4 bg-slate-100 border-2 border-transparent focus:border-[#00A8E8] rounded-2xl transition-all outline-none font-bold" />
-                </div>
-                <input type="tel" name="celular" required placeholder="Celular" className="w-full p-4 bg-slate-100 border-2 border-transparent focus:border-[#00A8E8] rounded-2xl transition-all outline-none font-bold" />
-                <input type="email" name="email" required placeholder="Email" className="w-full p-4 bg-slate-100 border-2 border-transparent focus:border-[#00A8E8] rounded-2xl transition-all outline-none font-bold" />
-                
-                <div className="grid grid-cols-2 gap-2">
-                    {['Público', 'Privado', 'Monotributo', 'Jubilado'].map(opt => (
-                      <label key={opt} className={`flex items-center justify-center p-3 rounded-xl cursor-pointer border-2 transition-all font-bold text-sm ${formData.empleo === opt ? 'bg-[#00529B] border-[#00529B] text-white' : 'bg-slate-50 border-slate-200 text-slate-500'}`}>
-                        <input type="radio" name="empleo" value={opt} className="hidden" onChange={handleChange} />
-                        {opt}
-                      </label>
-                    ))}
-                </div>
-
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  type="submit"
-                  className="w-full bg-linear-to-r from-[#00529B] to-[#00A8E8] text-white py-5 rounded-[1.5rem] font-black text-lg shadow-xl"
-                >
-                  {submitted ? '✓ ¡ENVIADO!' : 'SOLICITAR AHORA'}
-                </motion.button>
-              </form>
+          {/* Información */}
+          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} className="space-y-10">
+            <div>
+              <h3 className="text-4xl font-black text-[#00529B] mb-6 uppercase tracking-tight">Tarjeta Titanio</h3>
+              <p className="text-slate-600 font-bold text-xl">Tu tarjeta de crédito premium con los mejores beneficios del mercado.</p>
+            </div>
+            <div className="space-y-5">
+              {[
+                { icon: "💳", title: "Cuotas sin Interés", desc: "En todas tus compras" },
+                { icon: "🎁", title: "Cashback Automático", desc: "Recupera dinero en tus compras habituales" },
+                { icon: "🏆", title: "Beneficios Exclusivos", desc: "Acceso a promociones y ofertas especiales" },
+                { icon: "🛡️", title: "Seguro de Compra", desc: "Protección en todas tus transacciones" },
+                { icon: "📱", title: "Mi Titanio Digital", desc: "Controla tu tarjeta desde tu celular" },
+                { icon: "⏰", title: "Atención 24/7", desc: "Soporte al cliente permanente" }
+              ].map((item, i) => (
+                <motion.div key={i} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }} className="flex gap-5 p-6 bg-white rounded-2xl border-2 border-slate-200 hover:border-[#00A8E8] hover:shadow-xl transition-all group/item">
+                  <span className="text-3xl">{item.icon}</span>
+                  <div className="flex-1">
+                    <p className="font-black text-[#00529B] text-lg group-hover/item:text-[#00A8E8] transition-colors">{item.title}</p>
+                    <p className="text-base text-slate-600 font-bold mt-1">{item.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>
 
-        {/* Servicios Adicionales */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="mt-20 pt-20 border-t-2 border-slate-300/50"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#00529B] mb-4 uppercase tracking-tighter text-center">Servicios Adicionales</h2>
-          <p className="text-center text-slate-600 mb-12 text-lg">Accedé a beneficios exclusivos con tu Tarjeta Titanio</p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Wallet, title: "Adelantos en Efectivo", desc: "Obtén efectivo rápido y seguro cuando lo necesites" },
-              { icon: Gift, title: "Descuentos Exclusivos", desc: "Beneficiáte con promociones en miles de comercios" },
-              { icon: Zap, title: "Débitos Automáticos", desc: "Pagá tus gastos de forma automática y segura" },
-              { icon: Shield, title: "Tarjetas Adicionales", desc: "Agrega familiares sin costo adicional" },
-              { icon: TrendingUp, title: "Mi Titanio Digital", desc: "Consulta tu saldo desde cualquier dispositivo" },
-              { icon: Clock, title: "Atención 24/7", desc: "Comunicate con nosotros en todo momento" },
-              { icon: Users, title: "Titanio Eventos", desc: "Acceso exclusivo a shows y eventos especiales" },
-              { icon: Headphones, title: "Soporte Premium", desc: "Asistencia personalizada para tu tranquilidad" }
-            ].map((item, i) => {
-              const IconComponent = item.icon;
-              return (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl hover:scale-105 transition-all border border-slate-100 cursor-pointer"
-                >
-                  <div className="w-14 h-14 bg-linear-to-br from-[#00529B]/10 to-[#00A8E8]/10 rounded-xl flex items-center justify-center mb-4 group-hover:from-[#64BC26]/20 group-hover:to-[#00A8E8]/20 transition-all">
-                    <IconComponent className="text-[#00529B] group-hover:text-[#00A8E8] transition-colors" size={28} />
-                  </div>
-                  <h3 className="text-lg font-black text-[#00529B] mb-2 group-hover:text-[#00A8E8] transition-colors">{item.title}</h3>
-                  <p className="text-sm text-slate-600 group-hover:text-slate-700 transition-colors">{item.desc}</p>
-                </motion.div>
-                
-              );
-            })}
+        {/* FORMULARIO AMPLIADO CON DISEÑO MEJORADO */}
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto mb-20">
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-gradient-to-br from-[#00A8E8]/25 via-[#64BC26]/15 to-transparent rounded-full blur-3xl"></div>
+          <div className="relative bg-gradient-to-br from-white via-[#F0F8FF] to-[#F0FFF0] backdrop-blur-xl rounded-[2.5rem] shadow-2xl p-8 md:p-14 border-2 border-white/50 overflow-hidden">
+            {/* Decorative corners */}
+            <div className="absolute top-0 right-0 w-40 h-40 bg-[#00A8E8]/10 rounded-full -mr-20 -mt-20 blur-2xl" />
+            <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#64BC26]/10 rounded-full -ml-20 -mb-20 blur-2xl" />
+            
+            <div className="mb-12 text-center relative z-10">
+              <div className="bg-gradient-to-br from-[#00529B]/20 to-[#64BC26]/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                <CreditCardIcon className="text-[#00529B]" size={32} />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-black text-[#00529B] mb-3 tracking-tight">Solicitá tu Tarjeta Ahora</h2>
+              <p className="text-slate-600 font-bold text-lg">Completá el formulario y recibirás aprobación al instante</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="text-xs font-bold text-[#00529B] uppercase tracking-widest ml-2 block mb-3">DNI</label>
+                  <input type="text" name="dni" required placeholder="Ej: 30444555" value={formData.dni} onChange={handleChange} className="w-full p-4 bg-white/80 backdrop-blur-sm border-2 border-slate-300/50 focus:border-[#00A8E8] focus:bg-white focus:shadow-lg focus:shadow-blue-200/50 rounded-2xl transition-all outline-none font-bold" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-[#00529B] uppercase tracking-widest ml-2 block mb-3">Nombre</label>
+                  <input type="text" name="nombre" required placeholder="Tu nombre" value={formData.nombre} onChange={handleChange} className="w-full p-4 bg-white/80 backdrop-blur-sm border-2 border-slate-300/50 focus:border-[#00A8E8] focus:bg-white focus:shadow-lg focus:shadow-blue-200/50 rounded-2xl transition-all outline-none font-bold" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="text-xs font-bold text-[#00529B] uppercase tracking-widest ml-2 block mb-3">Apellido</label>
+                  <input type="text" name="apellido" required placeholder="Tu apellido" value={formData.apellido} onChange={handleChange} className="w-full p-4 bg-white/80 backdrop-blur-sm border-2 border-slate-300/50 focus:border-[#00A8E8] focus:bg-white focus:shadow-lg focus:shadow-blue-200/50 rounded-2xl transition-all outline-none font-bold" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-[#00529B] uppercase tracking-widest ml-2 block mb-3">Celular</label>
+                  <input type="tel" name="celular" required placeholder="381 000 0000" value={formData.celular} onChange={handleChange} className="w-full p-4 bg-white/80 backdrop-blur-sm border-2 border-slate-300/50 focus:border-[#00A8E8] focus:bg-white focus:shadow-lg focus:shadow-blue-200/50 rounded-2xl transition-all outline-none font-bold" />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-[#00529B] uppercase tracking-widest ml-2 block mb-3">Email</label>
+                <input type="email" name="email" required placeholder="correo@ejemplo.com" value={formData.email} onChange={handleChange} className="w-full p-4 bg-white/80 backdrop-blur-sm border-2 border-slate-300/50 focus:border-[#00A8E8] focus:bg-white focus:shadow-lg focus:shadow-blue-200/50 rounded-2xl transition-all outline-none font-bold" />
+              </div>
+
+              <div>
+                <label className="text-sm font-black text-[#00529B] block mb-3">Tipo de Trabajo *</label>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {['Público', 'Privado', 'Monotributista', 'Jubilado'].map(opt => (
+                    <label key={opt} className={`p-4 rounded-xl cursor-pointer border-2 transition-all font-bold text-center text-sm ${formData.tipoTrabajo === opt ? 'bg-gradient-to-r from-[#00529B] to-[#00A8E8] border-[#00529B] text-white shadow-lg shadow-blue-500/30' : 'bg-white/70 border-slate-300/50 text-slate-700 hover:border-[#00A8E8] hover:bg-white'}`}>
+                      <input type="radio" name="tipoTrabajo" value={opt} className="hidden" onChange={handleChange} />
+                      {opt}
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-sm font-black text-[#00529B] block mb-3">Categoría de Cliente *</label>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {['Particular', 'Empresario', 'Asesor Fiscal', 'Otro'].map(opt => (
+                    <label key={opt} className={`p-4 rounded-xl cursor-pointer border-2 transition-all font-bold text-center text-sm ${formData.publico === opt ? 'bg-gradient-to-r from-[#64BC26] to-[#7ed321] border-[#64BC26] text-white shadow-lg shadow-green-500/30' : 'bg-white/70 border-slate-300/50 text-slate-700 hover:border-[#64BC26] hover:bg-white'}`}>
+                      <input type="radio" name="publico" value={opt} className="hidden" onChange={handleChange} />
+                      {opt}
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" className="w-full bg-gradient-to-r from-[#00529B] via-[#00A8E8] to-[#00529B] text-white py-6 rounded-2xl font-black text-lg shadow-xl shadow-blue-300 hover:shadow-2xl transition-all mt-8">
+                {submitted ? '✓ ¡SOLICITUD ENVIADA!' : 'SOLICITAR AHORA'}
+              </motion.button>
+              <p className="text-xs text-center text-slate-500 font-medium">Los campos marcados con * son obligatorios</p>
+            </form>
           </div>
         </motion.div>
-        
 
-        {/* Argencard Section */}
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="mt-20 pt-20 border-t-2 border-slate-300/50"
-        >
-        </motion.div>
-
-              <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-20"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#1B5E9E] mb-2 uppercase tracking-tighter text-center">Argencard</h2>
-          <p className="text-center text-slate-600 mb-12 text-lg">Tu complemento financiero perfecto</p>
+        {/* SECCIÓN ARGENCARD */}
+        <motion.div id="argencard" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="mt-20 pt-12">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#FF4444] mb-6 uppercase tracking-tighter text-center drop-shadow-lg">ArgenCard</h2>
+          <p className="text-center text-slate-700 mb-20 text-xl font-bold">Tu solución de crédito flexible y segura con cobertura nacional</p>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex justify-center lg:justify-end pt-6"
-            >
-              <motion.div
-                animate={{ 
-                  y: [0, -15, 0],
-                  rotateZ: [-1, 1, -1]
-                }}
-                transition={{ 
-                  duration: 5, 
-                  repeat: Infinity, 
-                  ease: "easeInOut" 
-                }}
-                className="w-full max-w-[480px] drop-shadow-[0_35px_35px_rgba(27,94,158,0.25)]"
-              >
-                <img 
-                  src="/argencard.svg" 
-                  alt="Tarjeta ArgenCard" 
-                  className="w-full h-auto object-contain"
-                />
-              </motion.div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }}>
+              <div onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{ perspective: "1200px" }} className="relative flex justify-center lg:justify-start pt-6 group">
+                <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="relative w-full max-w-[480px]">
+                  <div className="absolute inset-4 bg-gradient-to-br from-[#FF6666]/40 to-[#00A8E8]/20 blur-[70px] rounded-3xl -z-10 group-hover:from-[#FF4444]/50 group-hover:to-[#00A8E8]/40 transition-colors duration-500" />
+                  <img src="/argencard.svg" alt="ArgenCard" className="w-full h-auto object-contain drop-shadow-2xl rounded-[1.5rem] group-hover:drop-shadow-[0_60px_60px_rgba(255,68,68,0.3)] transition-all duration-300" style={{ transform: "translateZ(100px)" }} />
+                  <div className="absolute inset-0 z-20 rounded-[1.5rem] opacity-0 group-hover:opacity-30 transition-opacity duration-300 bg-gradient-to-tr from-transparent via-white/50 to-transparent pointer-events-none" />
+                </motion.div>
+              </div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-            >
-              <h3 className="text-2xl sm:text-3xl font-black text-[#1B5E9E] mb-6 uppercase">ArgenCard</h3>
+            <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} className="space-y-10">
+              <div>
+                <h3 className="text-4xl font-black text-[#FF4444] mb-6 uppercase tracking-tight">ArgenCard Premium</h3>
+                <p className="text-slate-700 font-bold text-xl">Tu tarjeta nacional con respaldo total. Acceso a crédito flexible con tasas competitivas y beneficios exclusivos.</p>
+              </div>
               <div className="space-y-4">
-                {["Acceso a crédito flexible", "Tasas competitivas del mercado", "Promociones en compras", "Servicio al cliente 24/7", "Consulta digital tu estado de cuenta"].map((benefit, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex items-center gap-4 p-4 bg-white/60 border border-white rounded-2xl shadow-sm hover:shadow-md transition-all hover:bg-white"
-                  >
-                    <div className="bg-[#1B5E9E]/10 p-1.5 rounded-full">
-                      <CheckCircle2 className="text-[#1B5E9E] shrink-0" size={20} strokeWidth={3} />
+                {[
+                  { icon: "💳", title: "Crédito Flexible", desc: "Adapta tus pagos según necesites" },
+                  { icon: "💰", title: "Tasas Competitivas", desc: "Las mejores tasas del mercado nacional" },
+                  { icon: "🛒", title: "Compras en Cuotas", desc: "Financia tus compras sin intereses" },
+                  { icon: "🎁", title: "Promociones Vigentes", desc: "Ofertas exclusivas en comercios afiliados" },
+                  { icon: "📱", title: "Control Digital", desc: "Consulta tu estado de cuenta 24/7" }
+                ].map((benefit, i) => (
+                  <motion.div key={i} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }} className="flex items-center gap-4 p-5 bg-white rounded-2xl border-2 border-slate-200 hover:border-[#FF4444] hover:shadow-lg transition-all group/item">
+                    <span className="text-3xl">{benefit.icon}</span>
+                    <div className="flex-1">
+                      <p className="font-black text-[#FF4444] text-lg group-hover/item:text-red-600 transition-colors">{benefit.title}</p>
+                      <p className="text-sm text-slate-600 font-bold mt-1">{benefit.desc}</p>
                     </div>
-                    <span className="font-bold text-slate-700">{benefit}</span>
                   </motion.div>
                 ))}
               </div>
+              <motion.button onClick={() => goToSection('argencard')} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full bg-gradient-to-r from-[#FF4444] to-[#FF6666] text-white py-6 rounded-2xl font-black text-lg shadow-xl shadow-red-400/50 hover:shadow-2xl transition-all mt-10 mb-8">
+                SOLICITAR ARGENCARD AHORA
+              </motion.button>
             </motion.div>
           </div>
         </motion.div>
+
+        {/* FOOTER - match Home.jsx */}
+        <footer className="bg-[#002855] text-white py-20 px-4 sm:px-6">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-12 text-center">
+            <div>
+              <Phone className="mx-auto mb-4 text-[#00A8E8]" size={32} />
+              <p className="text-2xl font-black text-[#64BC26]">0810 888 7528</p>
+            </div>
+            <div>
+              <Store className="mx-auto mb-4 text-[#64BC26]" size={32} />
+              <p className="text-2xl font-black text-[#64BC26]">0810 555 1111</p>
+            </div>
+            <div>
+              <MessageCircle className="mx-auto mb-4 text-[#00A8E8]" size={32} />
+              <p className="text-2xl font-black text-[#64BC26]">381 000 0000</p>
+            </div>
+          </div>
+        </footer>
+
+        {/* Modal */}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: showModal ? 1 : 0 }} transition={{ duration: 0.3 }} className={`fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 ${showModal ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+          <motion.div initial={{ scale: 0.8, y: 20 }} animate={{ scale: showModal ? 1 : 0.8, y: showModal ? 0 : 20 }} className="bg-white rounded-3xl p-12 max-w-md w-full mx-4 shadow-2xl text-center">
+            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2, type: "spring" }} className="w-20 h-20 bg-gradient-to-br from-[#64BC26] to-[#7ed321] rounded-full flex items-center justify-center mx-auto mb-6">
+              <CheckCircle2 size={48} className="text-white" strokeWidth={2} />
+            </motion.div>
+            <h3 className="text-3xl font-black text-[#00529B] mb-3">¡Solicitud Enviada!</h3>
+            <p className="text-slate-600 mb-4 font-medium">Gracias por tu solicitud. Nos comunicaremos contigo pronto.</p>
+            <div className="bg-blue-50 border-2 border-[#00A8E8] rounded-2xl p-4 mb-6">
+              <p className="text-sm font-bold text-slate-700">📧 Email: {formData.email}</p>
+              <p className="text-sm font-bold text-slate-700 mt-2">📱 Celular: {formData.celular}</p>
+            </div>
+            <p className="text-sm text-slate-500 italic">Redirigiéndote en segundos...</p>
+          </motion.div>
+        </motion.div>
       </div>
-  
     </div>
   );
 };
