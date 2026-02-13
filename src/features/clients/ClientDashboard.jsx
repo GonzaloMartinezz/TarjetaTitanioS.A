@@ -175,7 +175,7 @@ const ClientDashboard = () => {
         {/* FORMULARIO AMPLIADO CON DISEÑO MEJORADO */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto mb-20">
           <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-linear-to-br from-[#00A8E8]/25 via-[#64BC26]/15 to-transparent rounded-full blur-3xl"></div>
-          <div className="relative bg-linear-to-br from-white via-[#F0F8FF] to-[#F0FFF0] backdrop-blur-xl rounded-4xl md:rounded-[2.5rem] shadow-2xl p-6 md:p-14 border-2 border-white/50 overflow-hidden">
+          <div className="relative bg-linear-to-br from-white via-[#F0F8FF] to-[#F0FFF0] backdrop-blur-xl rounded-3xl md:rounded-[2.5rem] shadow-2xl p-6 md:p-14 border-2 border-white/50 overflow-hidden">
             {/* Decorative corners */}
             <div className="absolute top-0 right-0 w-40 h-40 bg-[#00A8E8]/10 rounded-full -mr-20 -mt-20 blur-2xl" />
             <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#64BC26]/10 rounded-full -ml-20 -mb-20 blur-2xl" />

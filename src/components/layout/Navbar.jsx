@@ -28,11 +28,11 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           {/* 1. Logo - Más grande e imponente */}
           <Link to="/" className="shrink-0 group">
-            <div className="h-16 w-16 sm:h-20 sm:w-50 rounded-full overflow-hidden shadow-sm transition-transform group-hover:scale-105">
+            <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full overflow-hidden shadow-sm transition-transform group-hover:scale-105">
               <img
                 src="/1.4.png"
                 alt="Tarjeta Titanio"
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain"
               />
             </div>
           </Link>

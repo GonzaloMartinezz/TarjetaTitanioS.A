@@ -4,7 +4,7 @@ import { AuthProvider } from './store/AuthContext.jsx'; // Importante para el lo
 import Navbar from './components/layout/Navbar.jsx';
 import ScrollToTop from './components/common/ScrollToTop.jsx'; // Botón scroll to top
 import Home from './features/company/Home.jsx';
-import AuthPage from './features/auth/AuthPage.jsx';
+import RegisterForm from './features/clients/RegisterForm.jsx';
 import ClientDashboard from './features/clients/ClientDashboard.jsx';
 import MerchantForm from './features/merchants/MerchantForm.jsx';
 import About from './features/company/About.jsx';
@@ -26,7 +26,7 @@ function App() {
               <Route path="/solicitud" element={<SolicitudForm />} />
               
               <Route path="/clientes" element={<ClientDashboard />} />
-              <Route path="/login" element={<AuthPage />} />
+              <Route path="/login" element={<RegisterForm />} />
               <Route path="/comercios" element={<MerchantForm />} />
               <Route path="/empresa" element={<About />} />
               

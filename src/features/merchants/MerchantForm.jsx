@@ -78,7 +78,7 @@ const MerchantLanding = () => {
 
   const servicios = [
     { icon: Zap, title: "Alta Inmediata", desc: "Empezá a vender en 24hs" },
-    { icon: Clock, title: "Pagos Rápidos", desc: "Liquidaciones en 48 horas hábiles" },
+    { icon: Clock, title: "Pagos Rápidos", desc: "Liquidaciones" },
     { icon: BarChart3, title: "Panel de Control", desc: "Gestioná tus ventas online" },
     { icon: Shield, title: "Seguridad Total", desc: "Transacciones protegidas" },
   ];
@@ -143,9 +143,9 @@ const MerchantLanding = () => {
             </div>
             <div className="space-y-5">
               {[
-                { icon: "", title: "Acreditación Rápida", desc: "Acreditación rápida en tu cuenta bancaria" },
+                { icon: "⏰", title: "Acreditación Rápida", desc: "Acreditación rápida en tu cuenta bancaria" },
                 { icon: "📉", title: "Aranceles Competitivos", desc: "Las comisiones más bajas del mercado" },
-                { icon: "💳", title: "Planes en Cuotas", desc: "Ofrecé Plan 1, 3, 6 cuotas" },
+                { icon: "💳", title: "Planes en Cuotas", desc: "Ofrecé Plan Z, 1, 3, 6 cuotas" },
                 { icon: "🎁", title: "Promociones Exclusivas", desc: "Días de descuento a cargo de Titanio" }
               ].map((item, i) => (
                 <motion.div key={i} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }} className="flex gap-5 p-6 bg-white rounded-2xl border-2 border-slate-200 hover:border-[#64BC26] hover:shadow-lg transition-all group/item">
@@ -163,7 +163,7 @@ const MerchantLanding = () => {
         {/* 4. FORMULARIO DE ADHESIÓN (Estilo Verde) */}
         <motion.div id="formulario" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto mb-20">
           <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-linear-to-br from-[#64BC26]/25 via-[#00A8E8]/15 to-transparent rounded-full blur-3xl"></div>
-          <div className="relative bg-linear-to-br from-white via-[#F0F8FF] to-[#F0FFF0] backdrop-blur-xl rounded-4xl md:rounded-[2.5rem] shadow-2xl p-6 md:p-14 border-2 border-white/50 overflow-hidden">
+          <div className="relative bg-linear-to-br from-white via-[#F0F8FF] to-[#F0FFF0] backdrop-blur-xl rounded-3xl md:rounded-[2.5rem] shadow-2xl p-6 md:p-14 border-2 border-white/50 overflow-hidden">
              {/* Decorative corners */}
             <div className="absolute top-0 right-0 w-40 h-40 bg-[#64BC26]/10 rounded-full -mr-20 -mt-20 blur-2xl" />
             <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#E0F200]/10 rounded-full -ml-20 -mb-20 blur-2xl" />
@@ -241,7 +241,7 @@ const MerchantLanding = () => {
           <h2 className="text-3xl font-black text-[#64BC26] mb-12 uppercase text-center italic tracking-tighter">Servicios para tu Negocio</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {servicios.map((s, i) => (
-              <div key={i} className="flex flex-col items-center text-center p-6 hover:bg-green-50 hover:shadow-lg transition-allrounded-3xl transition-all group">
+              <div key={i} className="flex flex-col items-center text-center p-6 hover:bg-green-50 hover:shadow-lg rounded-3xl transition-all group">
                 <div className="bg-white p-4 rounded-2xl shadow-md group-hover:bg-[#64BC26] transition-colors mb-4">
                   <s.icon className="text-[#64BC26] group-hover:text-white transition-colors" size={32} />
                 </div>

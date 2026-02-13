@@ -108,7 +108,7 @@ const Home = () => {
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          className="bg-white rounded-4xl md:rounded-[2.5rem] shadow-2xl p-6 md:p-12 mb-12 md:mb-16 border border-slate-100 relative overflow-hidden"
+          className="bg-white rounded-3xl md:rounded-[2.5rem] shadow-2xl p-6 md:p-12 mb-12 md:mb-16 border border-slate-100 relative overflow-hidden"
         >
           <div className="absolute top-0 left-0 w-full h-2 bg-linear-to-r from-[#64BC26] via-[#00A8E8] to-[#00529B]" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
@@ -120,14 +120,14 @@ const Home = () => {
               <motion.button 
                 whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 onClick={irAMiTitanio}
-                className="flex-1 sm:flex-none bg-[#00529B] text-white px-8 py-4 rounded-xl font-black text-lg flex items-center justify-center gap-3 shadow-lg hover:bg-[#004280] transition-colors min-w-50"
+                className="flex-1 sm:flex-none bg-[#00529B] text-white px-8 py-4 rounded-xl font-black text-lg flex items-center justify-center gap-3 shadow-lg hover:bg-[#004280] transition-colors min-w-[200px]"
               >
                 <LogIn size={24} /> INGRESAR
               </motion.button>
               <motion.button 
                 whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 onClick={irAMiTitanio}
-                className="flex-1 sm:flex-none bg-white text-[#00529B] border-2 border-[#00529B] px-8 py-4 rounded-xl font-black text-lg flex items-center justify-center gap-3 hover:bg-slate-50 transition-colors min-w-50"
+                className="flex-1 sm:flex-none bg-white text-[#00529B] border-2 border-[#00529B] px-8 py-4 rounded-xl font-black text-lg flex items-center justify-center gap-3 hover:bg-slate-50 transition-colors min-w-[200px]"
               >
                 <UserPlus size={24} /> REGISTRARSE
               </motion.button>
@@ -190,24 +190,24 @@ const Home = () => {
       {/* SECCIÓN SUCURSALES Y PROMOS (Sin líneas arriba) */}
       <section className="bg-white py-12 md:py-20 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <motion.div whileHover={{ y: -5 }} className="bg-slate-50 rounded-4xl md:rounded-[3rem] p-8 md:p-12 flex flex-col justify-center border border-slate-200 shadow-xl transition-all">
+          <motion.div whileHover={{ y: -5 }} className="bg-slate-50 rounded-3xl md:rounded-[3rem] p-8 md:p-12 flex flex-col justify-center border border-slate-200 shadow-xl transition-all">
              <MapPin className="text-[#64BC26] mb-6" size={56} />
              <h3 className="text-3xl font-black text-[#00529B] mb-4 uppercase italic tracking-tighter">Sucursales</h3>
              <p className="text-slate-500 mb-8 font-medium">Encontranos en San Miguel de Tucumán e Hiper Libertad.</p>
           <button 
             onClick={() => navigate('/empresa#mapa-sucursales')}
-            className="bg-white text-[#00A8E8] border-2 border-[#00A8E8] py-4 rounded-2xl font-black hover:bg-[#00A8E8] hover:text-white transition"
+            className="bg-[#00A8E8] text-white py-4 rounded-2xl font-black hover:bg-[#00529B] transition"
             >
               VER MAPA
           </button>
         </motion.div>
-          <motion.div whileHover={{ y: -5 }} className="bg-linear-to-br from-[#64BC26] to-[#4e941d] rounded-4xl md:rounded-[3rem] p-8 md:p-12 text-white flex flex-col justify-center shadow-xl transition-all">
+          <motion.div whileHover={{ y: -5 }} className="bg-linear-to-br from-[#64BC26] to-[#4e941d] rounded-3xl md:rounded-[3rem] p-8 md:p-12 text-white flex flex-col justify-center shadow-xl transition-all">
              <Tag className="mb-6" size={56} />
              <h3 className="text-3xl font-black mb-4 uppercase italic tracking-tighter">Promociones</h3>
              <p className="opacity-90 mb-8 font-medium">Aprovechá beneficios exclusivos todos los días.</p>
              <button 
   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-  className="bg-white text-[#6fe41c] py-4 rounded-2xl font-black hover:scale-105 transition"
+  className="bg-[#7ed321] text-white py-4 rounded-2xl font-black hover:scale-105 transition"
 >
   CONOCER PROMOS
 </button>
