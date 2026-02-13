@@ -1,71 +1,111 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, Facebook, Instagram, LogOut, User, Settings, CreditCard, Wallet, DollarSign } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useAuth } from "../../store/AuthContext";
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, User, ChevronDown, Mail, Phone, CreditCard, Wallet, LogOut, Facebook, Instagram } from 'lucide-react';
+import { useAuth } from '../../store/AuthContext';
 
 const Navbar = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const location = useLocation();
   const { user, logout } = useAuth();
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setIsOpen(false);
+    setProfileOpen(false);
+  }, [location]);
 
   const handleLogout = () => {
-    logout();
     setProfileOpen(false);
-    navigate('/');
+    logout();
   };
 
-  // Estilo común para el efecto de subrayado animado
-  const navLinkStyle =
-    "relative group text-sm font-black transition-colors duration-300 uppercase tracking-wider";
-  const underlineStyle =
-    "absolute left-0 bottom-[-4px] w-0 h-[3px] transition-all duration-300 group-hover:w-full";
+  const navLinks = [
+    { name: 'Inicio', path: '/' },
+    { name: 'Soy Cliente', path: '/clientes' },
+    { name: 'Soy Comercio', path: '/comercios' },
+    { name: 'Empresa', path: '/empresa' },
+  ];
 
   return (
-    <nav className="fixed w-full z-50 bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-5'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center">
-          {/* 1. Logo - Más grande e imponente */}
-          <Link to="/" className="shrink-0 group">
-            <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full overflow-hidden shadow-sm transition-transform group-hover:scale-105">
-              <img
-                src="/1.4.png"
-                alt="Tarjeta Titanio"
-                className="h-full w-full object-contain"
-              />
-            </div>
+          
+          {/* 1. LOGO */}
+          <Link to="/" className="flex items-center gap-2 group">
+            <img 
+              src="/1.4.png" 
+              alt="Tarjeta Titanio" 
+              className="h-14 sm:h-16 w-auto object-contain p-1 bg-white rounded-xl border border-slate-100 shadow-sm group-hover:shadow-md transition-all" 
+            />
           </Link>
 
-          {/* 2. Menú Central - Centrado absoluto con efecto de subrayado */}
-          <div className="hidden md:flex items-center justify-center flex-1 gap-14">
-            <Link
-              to="/clientes"
-              className={`${navLinkStyle} text-[#00529B] hover:text-[#00A8E8]`}
-            >
-              Soy Cliente
-              <span className={`${underlineStyle} bg-[#00A8E8]`}></span>
-            </Link>
+          {/* 2. LINKS DE NAVEGACIÓN (Desktop con lógica de color) */}
+          <div className="hidden lg:flex items-center gap-1 bg-white/80 backdrop-blur-sm px-2 py-1.5 rounded-full shadow-sm border border-slate-100/50">
+            {navLinks.map((link) => {
+              // Lógica para detectar si es el link de comercios
+              const isMerchant = link.path === '/comercios';
+              
+              // Definir clases basadas en si es comercio o no
+              const activeClass = isMerchant 
+                ? 'bg-[#64BC26] text-white shadow-green-200 shadow-md' 
+                : 'bg-[#00529B] text-white shadow-md'; 
+                
+              const inactiveClass = isMerchant
+                ? 'text-slate-500 hover:text-[#64BC26] hover:bg-green-50' 
+                : 'text-slate-500 hover:text-[#00529B] hover:bg-slate-50'; 
 
-            <Link
-              to="/comercios"
-              className={`${navLinkStyle} text-[#64BC26] hover:text-[#4e941d]`}
-            >
-              Soy Comercio
-              <span className={`${underlineStyle} bg-[#64BC26]`}></span>
-            </Link>
-
-            <Link
-              to="/empresa"
-              className={`${navLinkStyle} text-[#00529B] hover:text-[#00A8E8]`}
-            >
-              Nuestra Empresa
-              <span className={`${underlineStyle} bg-[#00A8E8]`}></span>
-            </Link>
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`relative px-5 py-2 rounded-full text-sm font-black transition-all ${
+                    location.pathname === link.path ? activeClass : inactiveClass
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
           </div>
 
-          {/* 3. Acciones Derecha - Mi Cuenta / Perfil Usuario y Redes */}
+          {/* 3. ACCIONES DERECHA - REDES Y MI CUENTA */}
           <div className="flex items-center gap-4 sm:gap-6">
+            
+            {/* NUEVO: Redes Sociales (Visibles en Desktop) */}
+            <div className="hidden lg:flex items-center gap-3 pr-4 border-r-2 border-slate-200/60">
+              <a 
+                href="https://www.facebook.com/TarjetaTitanioTucuman" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-slate-400 hover:text-[#1877F2] hover:scale-110 transition-all bg-white p-2 rounded-full shadow-sm hover:shadow-md"
+              >
+                <Facebook size={20} fill="currentColor" className="stroke-none" />
+              </a>
+              <a 
+                href="https://www.instagram.com/tarjetatitanio/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-slate-400 hover:text-[#E1306C] hover:scale-110 transition-all bg-white p-2 rounded-full shadow-sm hover:shadow-md"
+              >
+                <Instagram size={20} />
+              </a>
+            </div>
+
             {/* Perfil de Usuario Logueado O Botón MI CUENTA */}
             {user ? (
               <div className="relative">
@@ -73,208 +113,196 @@ const Navbar = () => {
                   onClick={() => setProfileOpen(!profileOpen)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="hidden sm:flex items-center gap-3 bg-linear-to-r from-[#00529B] to-[#00A8E8] text-white px-5 py-2 rounded-full text-[11px] font-black shadow-lg hover:shadow-xl transition-all"
+                  className="hidden sm:flex items-center gap-3 bg-gradient-to-r from-[#00529B] to-[#00A8E8] text-white px-5 py-2 rounded-full text-[13px] font-black shadow-lg hover:shadow-blue-300/50 transition-all border border-white/20"
                 >
-                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                    <User size={16} />
+                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm border border-white/30">
+                    <User size={16} className="text-white" />
                   </div>
-                  <span className="truncate max-w-30">{user.nombre || 'Usuario'}</span>
+                  <div className="flex flex-col items-start leading-tight">
+                    <span className="text-[10px] font-medium opacity-80 uppercase tracking-wider">Hola,</span>
+                    <span className="truncate max-w-[100px]">
+                      {user.nombre || "Usuario"}
+                    </span>
+                  </div>
+                  <motion.div animate={{ rotate: profileOpen ? 180 : 0 }}>
+                     <ChevronDown size={14} className="opacity-70" />
+                  </motion.div>
                 </motion.button>
 
-                {/* Dropdown Menu - Right to Left Slide */}
+                {/* Dropdown Menu */}
                 <AnimatePresence>
                   {profileOpen && (
                     <>
-                      {/* Backdrop */}
                       <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setProfileOpen(false)}
-                        className="fixed inset-0 z-40"
+                        className="fixed inset-0 z-40 cursor-default"
                       />
-                      
-                      {/* Dropdown */}
                       <motion.div
-                        initial={{ opacity: 0, x: 100 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 100 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50"
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2, type: "spring", stiffness: 300, damping: 20 }}
+                        className="absolute right-0 mt-3 w-80 sm:w-96 bg-white rounded-3xl shadow-2xl shadow-slate-400/50 border border-slate-100 overflow-hidden z-50 ring-4 ring-slate-50"
                       >
-                        {/* Header */}
-                        <div className="bg-linear-to-r from-[#00529B] to-[#00A8E8] p-6 text-white">
-                          <h3 className="font-black text-lg mb-1">{user.nombre || 'Usuario'}</h3>
-                          <p className="text-sm text-white/80">{user.apellido || ''}</p>
-                          <p className="text-xs text-white/70 mt-2">📧 {user.email}</p>
-                          <p className="text-xs text-white/70 mt-1">📱 {user.celular}</p>
+                        {/* Header Dropdown */}
+                        <div className="bg-gradient-to-br from-[#00529B] to-[#00A8E8] p-6 text-white relative overflow-hidden">
+                          <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10 blur-2xl pointer-events-none" />
+                          <div className="flex items-center gap-4 relative z-10">
+                            <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-2xl font-black shadow-lg">
+                              {user.nombre ? user.nombre.charAt(0).toUpperCase() : "U"}
+                            </div>
+                            <div>
+                              <h3 className="font-black text-xl leading-tight">
+                                {user.nombre} {user.apellido}
+                              </h3>
+                              <p className="text-xs font-medium text-blue-100 mt-1 flex items-center gap-1">
+                                <Mail size={12} /> {user.email}
+                              </p>
+                              {user.celular && (
+                                  <p className="text-xs font-medium text-blue-100 flex items-center gap-1">
+                                  <Phone size={12} /> {user.celular}
+                                  </p>
+                              )}
+                            </div>
+                          </div>
                         </div>
 
-                        {/* Body: Márgenes y Créditos */}
-                        <div className="p-5 space-y-5 max-h-[60vh] overflow-y-auto">
+                        {/* Body Dropdown */}
+                        <div className="p-6 space-y-6 max-h-[60vh] overflow-y-auto bg-slate-50/50">
                           {/* Titanio */}
-                          <div>
-                            <h4 className="text-sm font-black text-[#00529B] flex items-center gap-2 mb-3 uppercase tracking-wider">
-                              <CreditCard size={16} className="text-[#00A8E8]" /> Titanio
+                          <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+                            <h4 className="text-xs font-black text-[#00529B] flex items-center gap-2 mb-4 uppercase tracking-widest border-b border-slate-100 pb-2">
+                              <CreditCard size={16} className="text-[#00A8E8]" />
+                              Límites Titanio
                             </h4>
-                            <div className="grid grid-cols-2 gap-3">
-                              <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                                <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Mensual</p>
-                                <p className="text-base font-black text-[#00529B]">$ 450.000</p>
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="bg-blue-50/50 p-3 rounded-xl border border-blue-100 text-center">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase mb-1 tracking-wider">Compra Mensual</p>
+                                <p className="text-lg font-black text-[#00529B]">$ 450.000</p>
                               </div>
-                              <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                                <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Crédito</p>
-                                <p className="text-base font-black text-[#00529B]">$ 900.000</p>
+                              <div className="bg-blue-50/50 p-3 rounded-xl border border-blue-100 text-center">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase mb-1 tracking-wider">Límite Crédito</p>
+                                <p className="text-lg font-black text-[#00529B]">$ 900.000</p>
                               </div>
                             </div>
                           </div>
 
                           {/* Argencard */}
-                          <div>
-                            <h4 className="text-sm font-black text-[#FF4444] flex items-center gap-2 mb-3 uppercase tracking-wider">
-                              <Wallet size={16} className="text-[#FF6B6B]" /> ArgenCard
+                          <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+                            <h4 className="text-xs font-black text-[#FF4444] flex items-center gap-2 mb-4 uppercase tracking-widest border-b border-slate-100 pb-2">
+                              <Wallet size={16} className="text-[#FF6B6B]" />
+                              Límites ArgenCard
                             </h4>
-                            <div className="grid grid-cols-2 gap-3">
-                              <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                                <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Mensual</p>
-                                <p className="text-base font-black text-[#FF4444]">$ 300.000</p>
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="bg-red-50/50 p-3 rounded-xl border border-red-100 text-center">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase mb-1 tracking-wider">Compra Mensual</p>
+                                <p className="text-lg font-black text-[#FF4444]">$ 300.000</p>
                               </div>
-                              <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                                <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Crédito</p>
-                                <p className="text-base font-black text-[#FF4444]">$ 600.000</p>
+                              <div className="bg-red-50/50 p-3 rounded-xl border border-red-100 text-center">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase mb-1 tracking-wider">Límite Crédito</p>
+                                <p className="text-lg font-black text-[#FF4444]">$ 600.000</p>
                               </div>
                             </div>
                           </div>
-                        </div>
 
-                        {/* Footer: Logout */}
-                        <div className="p-2 border-t border-slate-100 bg-slate-50/50">
-                          <motion.button
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.05 }}
+                          {/* Logout */}
+                          <button 
                             onClick={handleLogout}
-                            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl hover:bg-red-50 transition-colors font-black text-red-600 text-sm uppercase tracking-wide"
+                            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-red-50 transition-colors font-black text-red-600 text-xs uppercase tracking-wide border border-transparent hover:border-red-100"
                           >
-                            <LogOut size={18} />
-                            <span>Cerrar Sesión</span>
-                          </motion.button>
+                            <LogOut size={16} /> Cerrar Sesión
+                          </button>
                         </div>
                       </motion.div>
                     </>
                   )}
                 </AnimatePresence>
 
-                {/* Mobile Profile Button */}
+                {/* Mobile Profile Icon */}
                 <motion.button
                   onClick={() => setProfileOpen(!profileOpen)}
-                  className="sm:hidden flex items-center justify-center w-10 h-10 rounded-full bg-linear-to-r from-[#00529B] to-[#00A8E8] text-white font-black text-sm"
+                  className="sm:hidden flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-[#00529B] to-[#00A8E8] text-white font-black text-sm shadow-md"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {user.nombre ? user.nombre[0].toUpperCase() : 'U'}
+                  {user.nombre ? user.nombre[0].toUpperCase() : <User size={20} />}
                 </motion.button>
               </div>
             ) : (
               <Link
                 to="/login"
-                className="hidden sm:block bg-[#00529B] text-white px-6 py-2 rounded-full text-[11px] font-black shadow-md hover:bg-[#003d75] transition-all active:scale-95"
+                className="hidden sm:flex bg-[#00529B] text-white px-6 py-2.5 rounded-full text-xs font-black shadow-md hover:bg-[#003d75] hover:shadow-lg transition-all active:scale-95 items-center gap-2"
               >
+                <User size={16} />
                 MI CUENTA
               </Link>
             )}
 
-            {/* Redes Sociales - Al final */}
-            <div className="hidden lg:flex items-center gap-4 border-l border-slate-200 pl-6">
-              <a
-                href="https://www.facebook.com/TarjetaTitanioTucuman?locale=es_LA"
-                target="_blank"
-                rel="noreferrer"
-                className="text-[#00529B] hover:text-[#00A8E8] transition-transform hover:scale-110"
-              >
-                <Facebook size={20} fill="currentColor" />
-              </a>
-              <a
-                href="https://instagram.com/tarjetatitanio"
-                target="_blank"
-                rel="noreferrer"
-                className="text-[#E4405F] hover:scale-110 transition-transform"
-              >
-                <Instagram size={20} />
-              </a>
-            </div>
-
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden p-2 hover:bg-slate-100 rounded-lg transition"
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden p-2 text-[#00529B] hover:bg-slate-100 rounded-full transition-colors"
             >
-              {mobileOpen ? (
-                <X size={28} className="text-[#00529B]" />
-              ) : (
-                <Menu size={28} className="text-[#00529B]" />
-              )}
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
         </div>
-
-        {/* Menú Móvil */}
-        {mobileOpen && (
-          <div className="md:hidden mt-4 pb-6 space-y-4 border-t border-slate-100 pt-6 animate-in slide-in-from-top">
-            <Link
-              to="/clientes"
-              className="block text-xl font-black text-[#00529B]"
-              onClick={() => setMobileOpen(false)}
-            >
-              SOY CLIENTE
-            </Link>
-            <Link
-              to="/comercios"
-              className="block text-xl font-black text-[#64BC26]"
-              onClick={() => setMobileOpen(false)}  
-            >
-              SOY COMERCIO
-            </Link>
-            <Link
-              to="/empresa"
-              className="block text-xl font-black text-slate-600"
-              onClick={() => setMobileOpen(false)}
-            >
-              NUESTRA EMPRESA
-            </Link>
-            <div className="pt-4 flex flex-col gap-4">
-              {user ? (
-                <>
-                  <div className="bg-linear-to-r from-[#00529B] to-[#00A8E8] text-white p-4 rounded-2xl">
-                    <p className="font-black text-base">{user.nombre} {user.apellido}</p>
-                    <p className="text-xs text-white/80 mt-1">{user.email}</p>
-                  </div>
-                  <button
-                    onClick={handleLogout}
-                    className="bg-red-600 text-white py-4 rounded-2xl font-black text-center shadow-lg flex items-center justify-center gap-2"
-                  >
-                    <LogOut size={20} /> CERRAR SESIÓN
-                  </button>
-                </>
-              ) : (
-                <Link
-                  to="/login"
-                  className="bg-[#00529B] text-white py-4 rounded-2xl font-black text-center shadow-lg"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  MI CUENTA
-                </Link>
-              )}
-              <div className="flex justify-center gap-10 py-4 border-t border-slate-100 mt-2">
-                <Facebook size={30} className="text-[#00529B]" />
-                <Instagram size={30} className="text-[#E4405F]" />
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
-    </nav>
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden bg-white border-t border-slate-100 shadow-xl overflow-hidden"
+          >
+            <div className="px-4 pt-4 pb-6 space-y-2">
+              {navLinks.map((link) => {
+                // Lógica de color para menú móvil
+                const isMerchant = link.path === '/comercios';
+                const activeMobile = isMerchant ? 'bg-[#64BC26] text-white' : 'bg-[#00529B] text-white';
+                const inactiveMobile = isMerchant 
+                  ? 'text-slate-600 hover:bg-green-50 hover:text-[#64BC26]' 
+                  : 'text-slate-600 hover:bg-slate-50 hover:text-[#00529B]';
+
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`block px-4 py-3 rounded-xl text-base font-bold text-center transition-colors ${
+                      location.pathname === link.path ? activeMobile : inactiveMobile
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
+              
+              {/* Botón Ingresar Móvil (solo si no está logueado) */}
+              {!user && (
+                <Link
+                  to="/login"
+                  className="block w-full mt-4 bg-[#64BC26] text-white px-4 py-3 rounded-xl text-center font-black"
+                >
+                  INGRESAR
+                </Link>
+              )}
+
+              {/* Redes Sociales en Móvil (Opcional, para que no falten) */}
+              <div className="flex justify-center gap-6 mt-6 pt-4 border-t border-slate-100">
+                 <a href="#" className="text-slate-400 hover:text-[#1877F2]"><Facebook size={24} /></a>
+                 <a href="#" className="text-slate-400 hover:text-[#E1306C]"><Instagram size={24} /></a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
 

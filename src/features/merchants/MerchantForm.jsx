@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { 
-  Store, TrendingUp, Users, DollarSign, 
-  Shield, Zap, BarChart3, Clock, Settings, CheckCircle,
-  Phone, ArrowRight, MessageCircle, CheckCircle2, Percent, FileText, Headphones
+  Store, TrendingUp, Shield, Zap, BarChart3, Clock, 
+  Phone, ArrowRight, MessageCircle, CheckCircle, Percent, FileText, Headphones 
 } from 'lucide-react';
 
 // Componente Card para opciones rápidas (Versión Verde para Comercios)
@@ -14,9 +13,9 @@ const QuickOptionCard = ({ title, description, icon: Icon, onClick }) => (
     onClick={onClick}
     className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all border border-slate-100 cursor-pointer overflow-hidden relative"
   >
-    <div className="absolute top-0 right-0 w-24 h-24 bg-linear-to-br from-[#64BC26]/20 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform" />
+    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#64BC26]/20 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform" />
     <div className="relative z-10">
-      <div className="w-12 h-12 bg-linear-to-br from-[#64BC26]/20 to-[#E0F200]/20 rounded-xl flex items-center justify-center mb-4 group-hover:from-[#64BC26]/40 group-hover:to-[#E0F200]/40 transition-all">
+      <div className="w-12 h-12 bg-gradient-to-br from-[#64BC26]/20 to-[#E0F200]/20 rounded-xl flex items-center justify-center mb-4 group-hover:from-[#64BC26]/40 group-hover:to-[#E0F200]/40 transition-all">
         <Icon className="text-[#64BC26] group-hover:text-[#4e941d] transition-colors" size={24} />
       </div>
       <h3 className="text-xl font-black text-[#64BC26] mb-2 group-hover:text-[#4e941d] transition-colors">{title}</h3>
@@ -78,9 +77,9 @@ const MerchantLanding = () => {
 
   const servicios = [
     { icon: Zap, title: "Alta Inmediata", desc: "Empezá a vender en 24hs" },
-    { icon: Clock, title: "Pagos Rápidos", desc: "Liquidaciones" },
+    { icon: Clock, title: "Pagos Rápidos", desc: "Liquidaciones en 48hs hábiles" },
     { icon: BarChart3, title: "Panel de Control", desc: "Gestioná tus ventas online" },
-    { icon: Shield, title: "Seguridad Total", desc: "Transacciones protegidas" },
+    { icon: Shield, title: "Seguridad Total", desc: "Transacciones protegidas con chip" },
   ];
 
   return (
@@ -94,9 +93,9 @@ const MerchantLanding = () => {
           className="text-center mb-16"
         >
           <div className="flex items-center justify-center gap-6 mb-8">
-            <div className="h-16 w-3 bg-linear-to-b from-[#64BC26] to-[#E0F200] rounded-full" />
+            <div className="h-16 w-3 bg-gradient-to-b from-[#64BC26] to-[#E0F200] rounded-full" />
             <h1 className="text-4xl md:text-6xl font-black text-[#64BC26] uppercase tracking-tighter italic">Portal Comercios</h1>
-            <div className="h-16 w-3 bg-linear-to-b from-[#E0F200] to-[#64BC26] rounded-full" />
+            <div className="h-16 w-3 bg-gradient-to-b from-[#E0F200] to-[#64BC26] rounded-full" />
           </div>
           <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium">Asociá tu negocio a la red Titanio y multiplicá tus ventas hoy mismo.</p>
         </motion.div>
@@ -119,18 +118,20 @@ const MerchantLanding = () => {
 
         {/* 3. SECCIÓN PLANES Y LIQUIDACIONES (Reemplaza Posnet) */}
         <div id="planes" className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center mb-24">
-          {/* Imagen 3D */}
+          {/* Imagen 3D (Placeholder o Icono Gigante) */}
           <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}>
             <div onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{ perspective: "1200px" }} className="relative flex justify-center lg:justify-start pt-6 group">
               <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="relative w-full max-w-120">
                 <div className="absolute inset-4 bg-[#64BC26]/40 blur-[70px] rounded-3xl -z-10 group-hover:bg-[#E0F200]/50 transition-colors duration-500" />
-                {/* Placeholder visual para Planes */}
-                <div className="w-full h-80 bg-linear-to-br from-white to-slate-50 rounded-3xl flex flex-col items-center justify-center shadow-2xl border-2 border-[#64BC26]/30" style={{ transform: "translateZ(50px)" }}>
-                    <TrendingUp size={100} className="text-[#64BC26] mb-4" />
-                    <div className="text-[#00529B] font-black text-3xl tracking-tighter uppercase italic">Unite a Titanio</div>
-                    <div className="text-slate-500 font-bold text-lg">crece tu negocio con nosotros</div>
+                
+                {/* CARD VISUAL "UNITE A TITANIO" */}
+                <div className="w-full h-80 bg-gradient-to-br from-white to-slate-50 rounded-[2.5rem] flex flex-col items-center justify-center shadow-2xl border-4 border-[#64BC26]/20" style={{ transform: "translateZ(50px)" }}>
+                    <TrendingUp size={100} className="text-[#64BC26] mb-6 drop-shadow-lg" />
+                    <div className="text-[#00529B] font-black text-4xl tracking-tighter uppercase italic drop-shadow-sm">Unite a Titanio</div>
+                    <div className="text-slate-500 font-bold text-xl mt-2">Hacé crecer tu negocio</div>
                 </div>
-                <div className="absolute inset-0 z-20 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 bg-linear-to-tr from-transparent via-white/50 to-transparent pointer-events-none" />
+
+                <div className="absolute inset-0 z-20 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 bg-gradient-to-tr from-transparent via-white/50 to-transparent pointer-events-none" />
               </motion.div>
             </div>
           </motion.div>
@@ -143,12 +144,12 @@ const MerchantLanding = () => {
             </div>
             <div className="space-y-5">
               {[
-                { icon: "⏰", title: "Acreditación Rápida", desc: "Acreditación rápida en tu cuenta bancaria" },
+                { icon: "⏰", title: "Acreditación Rapida", desc: "Crece tu negocio sin complicaciones" },
                 { icon: "📉", title: "Aranceles Competitivos", desc: "Las comisiones más bajas del mercado" },
-                { icon: "💳", title: "Planes en Cuotas", desc: "Ofrecé Plan Z, 1, 3, 6 cuotas" },
+                { icon: "💳", title: "Planes en Cuotas", desc: "Ofrecé Plan 1, 3, 6 cuotas fijas" },
                 { icon: "🎁", title: "Promociones Exclusivas", desc: "Días de descuento a cargo de Titanio" }
               ].map((item, i) => (
-                <motion.div key={i} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }} className="flex gap-5 p-6 bg-white rounded-2xl border-2 border-slate-200 hover:border-[#64BC26] hover:shadow-lg transition-all group/item">
+                <motion.div key={i} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }} className="flex gap-5 p-6 bg-white rounded-2xl border-2 border-slate-200 hover:border-[#64BC26] hover:shadow-xl transition-all group/item">
                   <span className="text-3xl">{item.icon}</span>
                   <div className="flex-1">
                     <p className="font-black text-[#64BC26] text-lg group-hover/item:text-[#4e941d] transition-colors">{item.title}</p>
@@ -162,9 +163,10 @@ const MerchantLanding = () => {
 
         {/* 4. FORMULARIO DE ADHESIÓN (Estilo Verde) */}
         <motion.div id="formulario" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto mb-20">
-          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-linear-to-br from-[#64BC26]/25 via-[#00A8E8]/15 to-transparent rounded-full blur-3xl"></div>
-          <div className="relative bg-linear-to-br from-white via-[#F0F8FF] to-[#F0FFF0] backdrop-blur-xl rounded-3xl md:rounded-[2.5rem] shadow-2xl p-6 md:p-14 border-2 border-white/50 overflow-hidden">
-             {/* Decorative corners */}
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-gradient-to-br from-[#64BC26]/25 via-[#00A8E8]/15 to-transparent rounded-full blur-3xl"></div>
+          <div className="relative bg-gradient-to-br from-white via-[#F0F8FF] to-[#F0FFF0] backdrop-blur-xl rounded-3xl md:rounded-[2.5rem] shadow-2xl p-6 md:p-14 border-2 border-white/50 overflow-hidden">
+             
+            {/* Decorative corners verdes */}
             <div className="absolute top-0 right-0 w-40 h-40 bg-[#64BC26]/10 rounded-full -mr-20 -mt-20 blur-2xl" />
             <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#E0F200]/10 rounded-full -ml-20 -mb-20 blur-2xl" />
             
@@ -178,7 +180,7 @@ const MerchantLanding = () => {
             ) : (
               <>
                 <div className="mb-12 text-center relative z-10">
-                  <div className="bg-linear-to-br from-[#64BC26]/20 to-[#E0F200]/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                  <div className="bg-gradient-to-br from-[#64BC26]/20 to-[#E0F200]/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto">
                     <Store className="text-[#64BC26]" size={32} />
                   </div>
                   <h2 className="text-2xl md:text-4xl font-black text-[#64BC26] mb-3 tracking-tight">Quiero Vender con Titanio</h2>
@@ -226,7 +228,7 @@ const MerchantLanding = () => {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full bg-linear-to-r from-[#64BC26] via-[#7ed321] to-[#64BC26] text-white py-6 rounded-2xl font-black text-lg shadow-xl shadow-green-300 hover:shadow-2xl transition-all mt-8 uppercase tracking-tighter"
+                    className="w-full bg-gradient-to-r from-[#64BC26] via-[#7ed321] to-[#64BC26] text-white py-6 rounded-2xl font-black text-lg shadow-xl shadow-green-300 hover:shadow-2xl transition-all mt-8 uppercase tracking-tighter"
                   >
                     Enviar Solicitud
                   </motion.button>
