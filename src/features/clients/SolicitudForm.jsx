@@ -9,6 +9,7 @@ const SolicitudForm = () => {
     apellido: '',
     celular: '',
     email: '',
+    numeroCuenta: '',
     tipoTrabajo: '',
     categoria: '',
     aceptaTerminos: false
@@ -50,6 +51,11 @@ const SolicitudForm = () => {
       newErrors.email = 'El email es obligatorio';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Email inválido';
+    }
+
+    // Validar número de cuenta
+    if (!formData.numeroCuenta) {
+      newErrors.numeroCuenta = 'El número de cuenta es obligatorio';
     }
 
     // Validar tipo de trabajo
@@ -104,6 +110,7 @@ const SolicitudForm = () => {
           apellido: '',
           celular: '',
           email: '',
+          numeroCuenta: '',
           tipoTrabajo: '',
           categoria: '',
           aceptaTerminos: false
@@ -182,6 +189,15 @@ const SolicitudForm = () => {
                   error={errors.celular}
                 />
               </div>
+
+              <FormInput
+                label="Número de Cuenta"
+                name="numeroCuenta"
+                placeholder="Tu número de cuenta"
+                value={formData.numeroCuenta}
+                onChange={handleChange}
+                error={errors.numeroCuenta}
+              />
             </div>
 
             {/* Sección Contacto */}

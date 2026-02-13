@@ -259,6 +259,10 @@ export default function MerchantLanding() {
                       <label className="text-sm font-black text-[#00529B] uppercase tracking-widest mb-3 block">CUIT</label>
                       <input type="text" placeholder="20-12345678-9" className="w-full p-4 bg-white/80 border-2 border-[#64BC26]/30 focus:border-[#64BC26] focus:bg-white rounded-2xl transition-all outline-none font-bold shadow-sm" />
                     </div>
+                    <div className="md:col-span-2">
+                      <label className="text-sm font-black text-[#00529B] uppercase tracking-widest mb-3 block">Número de Cuenta</label>
+                      <input type="text" placeholder="Nro de Cuenta" className="w-full p-4 bg-white/80 border-2 border-[#64BC26]/30 focus:border-[#64BC26] focus:bg-white rounded-2xl transition-all outline-none font-bold shadow-sm" />
+                    </div>
                   </div>
                 </div>
 

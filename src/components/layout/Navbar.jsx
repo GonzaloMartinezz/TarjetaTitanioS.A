@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, Facebook, Instagram, LogOut, User, Settings } from "lucide-react";
+import { Menu, X, Facebook, Instagram, LogOut, User, Settings, CreditCard, Wallet, DollarSign } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../../store/AuthContext";
 
@@ -100,7 +100,7 @@ const Navbar = () => {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 100 }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50"
+                        className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50"
                       >
                         {/* Header */}
                         <div className="bg-linear-to-r from-[#00529B] to-[#00A8E8] p-6 text-white">
@@ -110,27 +110,51 @@ const Navbar = () => {
                           <p className="text-xs text-white/70 mt-1">📱 {user.celular}</p>
                         </div>
 
-                        {/* Menu Items */}
-                        <div className="p-2 space-y-1">
+                        {/* Body: Márgenes y Créditos */}
+                        <div className="p-5 space-y-5 max-h-[60vh] overflow-y-auto">
+                          {/* Titanio */}
+                          <div>
+                            <h4 className="text-sm font-black text-[#00529B] flex items-center gap-2 mb-3 uppercase tracking-wider">
+                              <CreditCard size={16} className="text-[#00A8E8]" /> Titanio
+                            </h4>
+                            <div className="grid grid-cols-2 gap-3">
+                              <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                                <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Mensual</p>
+                                <p className="text-base font-black text-[#00529B]">$ 450.000</p>
+                              </div>
+                              <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                                <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Crédito</p>
+                                <p className="text-base font-black text-[#00529B]">$ 900.000</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Argencard */}
+                          <div>
+                            <h4 className="text-sm font-black text-[#FF4444] flex items-center gap-2 mb-3 uppercase tracking-wider">
+                              <Wallet size={16} className="text-[#FF6B6B]" /> ArgenCard
+                            </h4>
+                            <div className="grid grid-cols-2 gap-3">
+                              <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                                <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Mensual</p>
+                                <p className="text-base font-black text-[#FF4444]">$ 300.000</p>
+                              </div>
+                              <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                                <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Crédito</p>
+                                <p className="text-base font-black text-[#FF4444]">$ 600.000</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Footer: Logout */}
+                        <div className="p-2 border-t border-slate-100 bg-slate-50/50">
                           <motion.button
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.1 }}
-                            onClick={() => {
-                              navigate('/clientes');
-                              setProfileOpen(false);
-                            }}
-                            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-50 transition-colors font-bold text-[#00529B]"
-                          >
-                            <User size={18} />
-                            <span>Mi Perfil</span>
-                          </motion.button>
-                          <motion.button
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.15 }}
+                            transition={{ delay: 0.05 }}
                             onClick={handleLogout}
-                            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-50 transition-colors font-bold text-red-600"
+                            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl hover:bg-red-50 transition-colors font-black text-red-600 text-sm uppercase tracking-wide"
                           >
                             <LogOut size={18} />
                             <span>Cerrar Sesión</span>
@@ -249,6 +273,7 @@ const Navbar = () => {
           </div>
         )}
       </div>
+
     </nav>
   );
 };

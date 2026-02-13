@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, Users, Globe, Zap, MapPin, Phone, Mail, Briefcase } from 'lucide-react';
+import { Store, MessageCircle } from 'lucide-react';
 
 const About = () => {
   const values = [
@@ -28,15 +29,15 @@ const About = () => {
   ];
 
   return (
-    <div className="bg-[#F1F5F9] min-h-screen pt-32 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <div className="bg-[#F1F5F9] min-h-screen flex flex-col">
+      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 pt-24 md:pt-32 pb-12 md:pb-20">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-20"
         >
-          <h1 className="text-4xl sm:text-5xl font-black text-[#00529B] mb-4 uppercase">Nuestra Empresa</h1>
+          <h1 className="text-3xl sm:text-5xl font-black text-[#00529B] mb-4 uppercase">Nuestra Empresa</h1>
           <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto">
             Tarjeta Titanio: Tu socio financiero de confianza en Tucumán
           </p>
@@ -260,6 +261,15 @@ const About = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* FOOTER */}
+      <footer className="bg-[#002855] text-white py-20 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-12 text-center">
+          <div><Phone className="mx-auto mb-4 text-[#00A8E8]" size={32} /><p className="text-2xl font-black text-[#64BC26]">0810 888 7528</p></div>
+          <div><Store className="mx-auto mb-4 text-[#64BC26]" size={32} /><p className="text-2xl font-black text-[#64BC26]">0810 555 1111</p></div>
+          <div><MessageCircle className="mx-auto mb-4 text-[#00A8E8]" size={32} /><p className="text-2xl font-black text-[#64BC26]">381 626 1965</p></div>
+        </div>
+      </footer>
     </div>
   );
 };

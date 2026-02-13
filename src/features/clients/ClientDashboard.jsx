@@ -28,7 +28,7 @@ const QuickOptionCard = ({ title, description, icon: Icon, onClick }) => (
 const ClientDashboard = () => {
   const [submitted, setSubmitted] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({ dni: '', nombre: '', apellido: '', celular: '', email: '', tipoTrabajo: '', publico: '' });
+  const [formData, setFormData] = useState({ dni: '', nombre: '', apellido: '', celular: '', email: '', numeroCuenta: '', tipoTrabajo: '', publico: '' });
 
   // --- LÓGICA DE EFECTO 3D SUAVE ---
   const x = useMotionValue(0);
@@ -56,7 +56,7 @@ const ClientDashboard = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.dni || !formData.nombre || !formData.apellido || !formData.celular || !formData.email || !formData.tipoTrabajo || !formData.publico) {
+    if (!formData.dni || !formData.nombre || !formData.apellido || !formData.celular || !formData.email || !formData.numeroCuenta || !formData.tipoTrabajo || !formData.publico) {
       alert('Por favor completa todos los campos');
       return;
     }
@@ -65,7 +65,7 @@ const ClientDashboard = () => {
     setTimeout(() => {
       setShowModal(false);
       setSubmitted(false);
-      setFormData({ dni: '', nombre: '', apellido: '', celular: '', email: '', tipoTrabajo: '', publico: '' });
+      setFormData({ dni: '', nombre: '', apellido: '', celular: '', email: '', numeroCuenta: '', tipoTrabajo: '', publico: '' });
     }, 5000);
   };
 
@@ -110,13 +110,13 @@ const ClientDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col pt-40 pb-12 bg-[#F1F5F9]">
-      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6">
+    <div className="min-h-screen flex flex-col bg-[#F1F5F9]">
+      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 pt-28 md:pt-40 pb-12">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
           <div className="flex items-center justify-center gap-6 mb-8">
             <div className="h-16 w-3 bg-linear-to-b from-[#00529B] to-[#00A8E8] rounded-full" />
-            <h1 className="text-5xl md:text-6xl font-black text-[#00529B] uppercase tracking-tighter italic">Portal Cliente</h1>
+            <h1 className="text-4xl md:text-6xl font-black text-[#00529B] uppercase tracking-tighter italic">Portal Cliente</h1>
             <div className="h-16 w-3 bg-linear-to-b from-[#00A8E8] to-[#64BC26] rounded-full" />
           </div>
           <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium">Accedé a todos tus servicios y beneficios exclusivos en un solo lugar</p>
@@ -175,7 +175,7 @@ const ClientDashboard = () => {
         {/* FORMULARIO AMPLIADO CON DISEÑO MEJORADO */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto mb-20">
           <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-linear-to-br from-[#00A8E8]/25 via-[#64BC26]/15 to-transparent rounded-full blur-3xl"></div>
-          <div className="relative bg-linear-to-br from-white via-[#F0F8FF] to-[#F0FFF0] backdrop-blur-xl rounded-[2.5rem] shadow-2xl p-8 md:p-14 border-2 border-white/50 overflow-hidden">
+          <div className="relative bg-linear-to-br from-white via-[#F0F8FF] to-[#F0FFF0] backdrop-blur-xl rounded-4xl md:rounded-[2.5rem] shadow-2xl p-6 md:p-14 border-2 border-white/50 overflow-hidden">
             {/* Decorative corners */}
             <div className="absolute top-0 right-0 w-40 h-40 bg-[#00A8E8]/10 rounded-full -mr-20 -mt-20 blur-2xl" />
             <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#64BC26]/10 rounded-full -ml-20 -mb-20 blur-2xl" />
@@ -184,7 +184,7 @@ const ClientDashboard = () => {
               <div className="bg-linear-to-br from-[#00529B]/20 to-[#64BC26]/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto">
                 <CreditCardIcon className="text-[#00529B]" size={32} />
               </div>
-              <h2 className="text-3xl md:text-4xl font-black text-[#00529B] mb-3 tracking-tight">Solicitá tu Tarjeta Ahora</h2>
+              <h2 className="text-2xl md:text-4xl font-black text-[#00529B] mb-3 tracking-tight">Solicitá tu Tarjeta Ahora</h2>
               <p className="text-slate-600 font-bold text-lg">Completá el formulario y recibirás aprobación al instante</p>
             </div>
 
@@ -214,6 +214,11 @@ const ClientDashboard = () => {
               <div>
                 <label className="text-xs font-bold text-[#00529B] uppercase tracking-widest ml-2 block mb-3">Email</label>
                 <input type="email" name="email" required placeholder="correo@ejemplo.com" value={formData.email} onChange={handleChange} className="w-full p-4 bg-white/80 backdrop-blur-sm border-2 border-slate-300/50 focus:border-[#00A8E8] focus:bg-white focus:shadow-lg focus:shadow-blue-200/50 rounded-2xl transition-all outline-none font-bold" />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-[#00529B] uppercase tracking-widest ml-2 block mb-3">Número de Cuenta</label>
+                <input type="text" name="numeroCuenta" required placeholder="Tu número de cuenta" value={formData.numeroCuenta} onChange={handleChange} className="w-full p-4 bg-white/80 backdrop-blur-sm border-2 border-slate-300/50 focus:border-[#00A8E8] focus:bg-white focus:shadow-lg focus:shadow-blue-200/50 rounded-2xl transition-all outline-none font-bold" />
               </div>
 
               <div>
@@ -250,7 +255,7 @@ const ClientDashboard = () => {
 
         {/* SECCIÓN ARGENCARD */}
         <motion.div id="argencard" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="mt-20 pt-12">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#FF4444] mb-6 uppercase tracking-tighter text-center drop-shadow-lg">ArgenCard</h2>
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#FF4444] mb-6 uppercase tracking-tighter text-center drop-shadow-lg">ArgenCard</h2>
           <p className="text-center text-slate-700 mb-20 text-xl font-bold">Tu solución de crédito flexible y segura con cobertura nacional</p>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -266,14 +271,14 @@ const ClientDashboard = () => {
 
             <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} className="space-y-10">
               <div>
-                <h3 className="text-4xl font-black text-[#FF4444] mb-6 uppercase tracking-tight">ArgenCard Premium</h3>
-                <p className="text-slate-700 font-bold text-xl">Tu tarjeta nacional con respaldo total. Acceso a crédito flexible con tasas competitivas y beneficios exclusivos.</p>
+                <h3 className="text-4xl font-black text-[#FF4444] mb-6 uppercase tracking-tight"> Tarjeta ArgenCard</h3>
+                <p className="text-slate-700 font-bold text-xl">Tu tarjeta nacional con respaldo total. Acceso a compras digitales ybeneficios exclusivos.</p>
               </div>
               <div className="space-y-4">
                 {[
-                  { icon: "💳", title: "Crédito Flexible", desc: "Adapta tus pagos según necesites" },
-                  { icon: "💰", title: "Tasas Competitivas", desc: "Las mejores tasas del mercado nacional" },
-                  { icon: "🛒", title: "Compras en Cuotas", desc: "Financia tus compras sin intereses" },
+                  { icon: "🛒", title: "Compras Online", desc: "Realiza compras desde cualquier lugar" },
+                  { icon: "💰", title: "En 1 pago Sin interes", desc: "Podes financiarlo en tu resumen de cuenta" },
+                  { icon: "🌎", title: "Accesible fuera de la provincia", desc: "Usala en todo el país" },
                   { icon: "🎁", title: "Promociones Vigentes", desc: "Ofertas exclusivas en comercios afiliados" },
                   { icon: "📱", title: "Control Digital", desc: "Consulta tu estado de cuenta 24/7" }
                 ].map((benefit, i) => (
@@ -293,24 +298,6 @@ const ClientDashboard = () => {
           </div>
         </motion.div>
 
-        {/* FOOTER - match Home.jsx */}
-        <footer className="bg-[#002855] text-white py-20 px-4 sm:px-6">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-12 text-center">
-            <div>
-              <Phone className="mx-auto mb-4 text-[#00A8E8]" size={32} />
-              <p className="text-2xl font-black text-[#64BC26]">0810 888 7528</p>
-            </div>
-            <div>
-              <Store className="mx-auto mb-4 text-[#64BC26]" size={32} />
-              <p className="text-2xl font-black text-[#64BC26]">0810 555 1111</p>
-            </div>
-            <div>
-              <MessageCircle className="mx-auto mb-4 text-[#00A8E8]" size={32} />
-              <p className="text-2xl font-black text-[#64BC26]">381 000 0000</p>
-            </div>
-          </div>
-        </footer>
-
         {/* Modal */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: showModal ? 1 : 0 }} transition={{ duration: 0.3 }} className={`fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 ${showModal ? 'pointer-events-auto' : 'pointer-events-none'}`}>
           <motion.div initial={{ scale: 0.8, y: 20 }} animate={{ scale: showModal ? 1 : 0.8, y: showModal ? 0 : 20 }} className="bg-white rounded-3xl p-12 max-w-md w-full mx-4 shadow-2xl text-center">
@@ -327,6 +314,24 @@ const ClientDashboard = () => {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* FOOTER */}
+      <footer className="bg-[#002855] text-white py-20 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-12 text-center">
+          <div>
+            <Phone className="mx-auto mb-4 text-[#00A8E8]" size={32} />
+            <p className="text-2xl font-black text-[#64BC26]">0810 888 7528</p>
+          </div>
+          <div>
+            <Store className="mx-auto mb-4 text-[#64BC26]" size={32} />
+            <p className="text-2xl font-black text-[#64BC26]">0810 555 1111</p>
+          </div>
+          <div>
+            <MessageCircle className="mx-auto mb-4 text-[#00A8E8]" size={32} />
+            <p className="text-2xl font-black text-[#64BC26]">381 626 1965</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
