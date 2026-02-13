@@ -161,14 +161,6 @@ const RegisterForm = () => {
                         {errors.numeroCuenta && <p className="text-red-500 text-xs flex items-center gap-1 mt-1 ml-2"><AlertCircle size={14} /> {errors.numeroCuenta}</p>}
                     </div>
                     <div className="space-y-2">
-                        <label className="text-xs font-bold text-[#00529B] uppercase ml-2">Número de Cuenta</label>
-                        <div className="relative">
-                            <CreditCard className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                            <input type="text" name="numeroCuenta" placeholder="Tu número de cuenta" value={formData.numeroCuenta} onChange={handleChange} className={`w-full p-4 pl-12 bg-slate-50 rounded-2xl border-2 transition-all outline-none font-bold text-slate-700 ${errors.numeroCuenta ? 'border-red-500 focus:bg-red-50' : 'border-transparent focus:border-[#00A8E8] focus:bg-white'}`} />
-                        </div>
-                        {errors.numeroCuenta && <p className="text-red-500 text-xs flex items-center gap-1 mt-1 ml-2"><AlertCircle size={14} /> {errors.numeroCuenta}</p>}
-                    </div>
-                    <div className="space-y-2">
                         <label className="text-xs font-bold text-[#00529B] uppercase ml-2">Email</label>
                         <div className="relative">
                             <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
